@@ -4,7 +4,7 @@ from sqlalchemy import select
 from app.core.database import get_db
 from app.models.dataset import Dataset
 
-router = APIRouter(prefix="/datasets", tags=["Datasets"])
+router = APIRouter()
 
 @router.get("/")
 async def list_datasets(db: AsyncSession = Depends(get_db)):
