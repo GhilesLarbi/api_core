@@ -35,8 +35,6 @@ services:
       - |
         echo "Pulling Qwen2.5 1.5B (approx 1.1GB)..."
         ollama pull qwen2.5:1.5b
-        echo "Pulling Nomic Embed Text (approx 275MB)..."
-        ollama pull nomic-embed-text
         echo "Models downloaded successfully."
     depends_on:
       ollama:

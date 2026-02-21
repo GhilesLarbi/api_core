@@ -1,4 +1,4 @@
-FROM python:3.14-slim
+FROM python:3.12-slim
 
 WORKDIR /code
 
@@ -7,11 +7,11 @@ ENV PYTHONUNBUFFERED 1
 
 
 RUN apt-get update 
-RUN apt-get install -y git
+RUN apt-get install -y git build-essential gcc
 
 RUN pip install --no-cache-dir pipenv
 
 COPY Pipfile Pipfile.lock /code/
-RUN pipenv install --system --deploy --verbose
+RUN pipenv install --system --verbose
 
 COPY . /code/
