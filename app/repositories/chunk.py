@@ -45,65 +45,72 @@ class ChunkRepository(BaseRepository[Chunk]):
         limit: int = 5,
         window_size: int = 2
     ) -> List[Dict[str, Any]]:
-        """
-        1. Finds the top relevant chunks by vector similarity.
-        2. Expands the selection to include neighboring chunks (context window).
-        3. Returns grouped and ordered content by document.
-        """
-
-        seed_query = (
-            select(self.model.document_id, self.model.chunk_index)
+        
+        stmt = (
+            select(
+                self.model.document_id,
+                self.model.chunk_index,
+                self.model.embedding.cosine_distance(question_vector).label("distance")
+            )
             .join(Document, self.model.document_id == Document.id)
             .where(
                 Document.organization_id == org_id, 
                 Document.lang == lang
             )
-            .order_by(self.model.embedding.cosine_distance(question_vector))
+            .order_by("distance")
             .limit(limit)
+            .cte("seeds")
         )
-        
-        seed_results = await self.db.execute(seed_query)
-        seeds = seed_results.all()
 
-        if not seeds:
-            return []
-
-        conditions = []
-        for doc_id, idx in seeds:
-            conditions.append(
-                (self.model.document_id == doc_id) & 
-                (self.model.chunk_index >= idx - window_size) & 
-                (self.model.chunk_index <= idx + window_size)
-            )
-
-        window_query = (
+        query = (
             select(self.model, Document)
             .join(Document, self.model.document_id == Document.id)
-            .where(or_(*conditions))
+            .join(
+                stmt, 
+                (self.model.document_id == stmt.c.document_id) & 
+                (self.model.chunk_index >= stmt.c.chunk_index - window_size) & 
+                (self.model.chunk_index <= stmt.c.chunk_index + window_size)
+            )
             .order_by(self.model.document_id, self.model.chunk_index)
         )
 
-        result = await self.db.execute(window_query)
+        result = await self.db.execute(query)
         rows = result.all()
 
         grouped_results = {}
         
+        seen_chunks = set()
+
         for chunk, doc in rows:
+            unique_key = (doc.id, chunk.id)
+            
+            if unique_key in seen_chunks:
+                continue
+            
+            seen_chunks.add(unique_key)
+
             if doc.id not in grouped_results:
                 grouped_results[doc.id] = {
+                    "id": doc.id,
                     "source": doc.url,
                     "title": doc.title,
-                    "chunks": []
+                    "chunks": [],
+                    "chunk_ids": []
                 }
+            
             grouped_results[doc.id]["chunks"].append(chunk.content)
+            grouped_results[doc.id]["chunk_ids"].append(chunk.id)
 
+        # 4. Format Output
         final_output = []
         for doc_data in grouped_results.values():
             full_text = " ".join(doc_data["chunks"])
             final_output.append({
+                "id": doc_data["id"],
                 "source": doc_data["source"],
                 "title": doc_data["title"],
-                "content": full_text
+                "content": full_text,
+                "chunk_ids": doc_data["chunk_ids"]
             })
 
         return final_output

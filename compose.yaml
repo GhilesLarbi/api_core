@@ -114,6 +114,22 @@ services:
 
   ########################################################################################
   ########################################################################################
+  front:
+    build: ./frontend
+    container_name: front
+    command: npm run dev -- --host 0.0.0.0 --port 5173
+    ports:
+      - "3000:5173"
+    volumes:
+      - ./frontend:/code
+      - /code/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8000/api/v1
+    depends_on:
+      - api
+
+  ########################################################################################
+  ########################################################################################
   open-webui:
     image: ghcr.io/open-webui/open-webui:main
     container_name: open-webui

@@ -22,7 +22,7 @@ class Chunk(Base):
             "idx_chunks_embedding",
             "embedding",
             postgresql_using="hnsw",
-            postgresql_with={"m": 16, "ef_construction": 64},
+            postgresql_with={"m": 16, "ef_construction": 200},
             postgresql_ops={"embedding": "vector_cosine_ops"},
         ),
     )
@@ -32,6 +32,6 @@ class Chunk(Base):
     document_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("documents.id", ondelete="CASCADE"), index=True, nullable=False)
     chunk_index: Mapped[int] = mapped_column(Integer, default=0)
     content: Mapped[str] = mapped_column(Text, nullable=False)
-    embedding: Mapped[Vector] = mapped_column(Vector(384), nullable=False)
+    embedding: Mapped[Vector] = mapped_column(Vector(1024), nullable=False)
 
     document: Mapped["Document"] = relationship("Document", back_populates="chunks")
