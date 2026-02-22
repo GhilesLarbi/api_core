@@ -14,6 +14,14 @@ pydantic-settings = "*"
 ollama = "*"
 pgvector = "*"
 fastembed = "*"
+httpx = "*"
+selectolax = "*"
+langdetect = "*"
+taskiq = {version = "*", extras = ["reload"]}
+taskiq-redis = "*"
+taskiq-fastapi = "*"
+redis = "*"
+taskiq-dashboard = "*"
 
 [dev-packages]
 

@@ -1,4 +1,7 @@
 services:
+
+  ########################################################################################
+  ########################################################################################
   db:
     image: pgvector/pgvector:pg17
     container_name: db
@@ -8,6 +11,19 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
 
+  ########################################################################################
+  ########################################################################################
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    restart: always
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_data:/data
+
+  ########################################################################################
+  ########################################################################################
   ollama:
     image: ollama/ollama:latest
     container_name: ollama
@@ -21,6 +37,8 @@ services:
       timeout: 5s
       retries: 10
 
+  ########################################################################################
+  ########################################################################################
   model-init:
     image: ollama/ollama:latest
     container_name: model-init
@@ -40,23 +58,8 @@ services:
       ollama:
         condition: service_healthy
 
-  open-webui:
-    image: ghcr.io/open-webui/open-webui:main
-    container_name: open-webui
-    restart: unless-stopped
-    ports:
-      - "8080:8080"
-    env_file: .env
-    environment:
-      - OLLAMA_BASE_URL=http://ollama:11434
-    volumes:
-      - open_webui_data:/app/backend/data
-    depends_on:
-      ollama:
-        condition: service_healthy
-      model-init:
-        condition: service_completed_successfully
-
+  ########################################################################################
+  ########################################################################################
   api:
     build: .
     container_name: api
@@ -71,10 +74,80 @@ services:
         condition: service_started
       ollama:
         condition: service_healthy
-      model-init:
-        condition: service_completed_successfully
+      redis:
+        condition: service_started
+
+  ########################################################################################
+  ########################################################################################
+  worker:
+    build: .
+    container_name: worker
+    command: taskiq worker app.taskiq.main:broker # --reload --reload-dir app --log-level DEBUG
+    env_file: .env
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - OLLAMA_HOST=http://ollama:11434
+      - PYTHONDONTWRITEBYTECODE=1
+      - WATCHFILES_FORCE_POLLING=1 
+    volumes:
+      - .:/code
+    depends_on:
+      db:
+        condition: service_started
+      redis:
+        condition: service_started
+
+  ########################################################################################
+  ########################################################################################
+  scheduler:
+    build: .
+    container_name: scheduler
+    command: taskiq scheduler app.taskiq.main:scheduler
+    env_file: .env
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - .:/code
+    depends_on:
+      redis:
+        condition: service_started
+
+  ########################################################################################
+  ########################################################################################
+  taskiq-dashboard:
+    image: ghcr.io/danfimov/taskiq-dashboard:latest
+    container_name: taskiq_dashboard
+    ports:
+      - "8081:8000"
+    environment:
+      - TASKIQ_DASHBOARD__STORAGE_TYPE=sqlite
+      - TASKIQ_DASHBOARD__SQLITE__DSN=sqlite+aiosqlite:///data/taskiq_dashboard.db
+      - TASKIQ_DASHBOARD__API__TOKEN=supersecret
+    volumes:
+      - taskiq_dashboard_data:/data
+    depends_on:
+      - redis
+
+  ########################################################################################
+  ########################################################################################
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    env_file: .env
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+    volumes:
+      - open_webui_data:/app/backend/data
+    depends_on:
+      ollama:
+        condition: service_healthy
 
 volumes:
   postgres_data:
+  redis_data:
   ollama_data:
   open_webui_data:
+  taskiq_dashboard_data:
