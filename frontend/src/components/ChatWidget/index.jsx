@@ -11,7 +11,7 @@ export default function ChatWidget() {
     { id: 1, text: "Welcome! How can I help you today?", sender: 'bot' }
   ]);
 
-  const ORG_SLUG = "pm"; 
+  const ORG_SLUG = "am"; 
   const API_BASE = "http://localhost:8000/api/v1";
 
   const handleSend = async (e) => {

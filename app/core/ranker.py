@@ -10,7 +10,7 @@ def get_ranker():
     """
     global _ranker
     if _ranker is None:
-        cache_path = "/code/models_cache"
+        cache_path = "/models_cache"
         os.makedirs(cache_path, exist_ok=True)
         
         _ranker = Ranker(

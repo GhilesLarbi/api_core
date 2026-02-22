@@ -58,6 +58,13 @@ services:
       ollama:
         condition: service_healthy
 
+  models-init:
+    build: .
+    container_name: models-init
+    volumes:
+      - models_data:/models_cache
+    entrypoint: ["python", "download_models.py"]
+
   ########################################################################################
   ########################################################################################
   api:
@@ -69,6 +76,7 @@ services:
       - 8000:8000
     volumes:
       - .:/code
+      - models_data:/models_cache
     depends_on:
       db:
         condition: service_started
@@ -76,6 +84,8 @@ services:
         condition: service_healthy
       redis:
         condition: service_started
+      models-init:
+        condition: service_completed_successfully
 
   ########################################################################################
   ########################################################################################
@@ -91,11 +101,14 @@ services:
       - WATCHFILES_FORCE_POLLING=1 
     volumes:
       - .:/code
+      - models_data:/models_cache
     depends_on:
       db:
         condition: service_started
       redis:
         condition: service_started
+      models-init:
+        condition: service_completed_successfully
 
   ########################################################################################
   ########################################################################################
@@ -108,6 +121,7 @@ services:
       - REDIS_URL=redis://redis:6379/0
     volumes:
       - .:/code
+      - models_data:/models_cache
     depends_on:
       redis:
         condition: service_started
@@ -162,5 +176,6 @@ volumes:
   postgres_data:
   redis_data:
   ollama_data:
+  models_data:
   open_webui_data:
   # redis_insight_data:
