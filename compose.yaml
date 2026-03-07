@@ -65,6 +65,27 @@ services:
       - models_data:/models_cache
     entrypoint: ["python", "download_models.py"]
 
+
+  ########################################################################################
+  ########################################################################################
+  # browser:
+  #   image: ghcr.io/browserless/chromium:latest
+  #   container_name: browser
+  #   restart: always
+  #   ports:
+  #     - "3000:3000"
+
+  ########################################################################################
+  ########################################################################################
+  crawl4ai:
+    image: unclecode/crawl4ai:latest
+    container_name: crawl4ai
+    ports:
+      - "11235:11235"
+    environment:
+      - OPENAI_API_KEY=no-key-needed 
+    shm_size: '1g'
+
   ########################################################################################
   ########################################################################################
   api:
@@ -76,7 +97,7 @@ services:
       - 8000:8000
     volumes:
       - .:/code
-      - models_data:/models_cache
+      - models_data:/models_cache      
     depends_on:
       db:
         condition: service_started
@@ -144,20 +165,20 @@ services:
 
   ########################################################################################
   ########################################################################################
-  open-webui:
-    image: ghcr.io/open-webui/open-webui:main
-    container_name: open-webui
-    restart: unless-stopped
-    ports:
-      - "8080:8080"
-    env_file: .env
-    environment:
-      - OLLAMA_BASE_URL=http://ollama:11434
-    volumes:
-      - open_webui_data:/app/backend/data
-    depends_on:
-      ollama:
-        condition: service_healthy
+  # open-webui:
+  #   image: ghcr.io/open-webui/open-webui:main
+  #   container_name: open-webui
+  #   restart: unless-stopped
+  #   ports:
+  #     - "8080:8080"
+  #   env_file: .env
+  #   environment:
+  #     - OLLAMA_BASE_URL=http://ollama:11434
+  #   volumes:
+  #     - open_webui_data:/app/backend/data
+  #   depends_on:
+  #     ollama:
+  #       condition: service_healthy
 
   ########################################################################################
   ########################################################################################

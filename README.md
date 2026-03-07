@@ -115,3 +115,116 @@ The project uses a three-layer routing architecture:
 - `app/main.py`: Application entry point and Uvicorn configuration.
 - `compose.yaml`: Docker service definitions.
 - `Pipfile`: Python dependency definitions.
+
+
+
+
+<!-- 
+{
+  "url": "string",
+  "html": "string",
+  "fit_html": "string",
+  "success": "boolean",
+  "cleaned_html": "string",
+  "media": {
+    "images": [
+      {
+        "src": "string",
+        "data": "string",
+        "alt": "string",
+        "desc": "null",
+        "score": "number",
+        "type": "string",
+        "group_id": "number",
+        "format": "string",
+        "width": "null"
+      }
+    ],
+    "videos": "array",
+    "audios": "array"
+  },
+  "links": {
+    "internal": [
+      {
+        "href": "string",
+        "text": "string",
+        "title": "string",
+        "base_domain": "string",
+        "head_data": "null",
+        "head_extraction_status": "null",
+        "head_extraction_error": "null",
+        "intrinsic_score": "number",
+        "contextual_score": "null",
+        "total_score": "null"
+      }
+    ],
+    "external": [
+      {
+        "href": "string",
+        "text": "string",
+        "title": "string",
+        "base_domain": "string",
+        "head_data": "null",
+        "head_extraction_status": "null",
+        "head_extraction_error": "null",
+        "intrinsic_score": "number",
+        "contextual_score": "null",
+        "total_score": "null"
+      }
+    ]
+  },
+  "downloaded_files": "null",
+  "js_execution_result": "null",
+  "screenshot": "null",
+  "pdf": "null",
+  "mhtml": "null",
+  "extracted_content": "null",
+  "metadata": {
+    "title": "string",
+    "description": "string",
+    "keywords": "string",
+    "author": "null",
+    "og:title": "string",
+    "og:description": "string",
+    "og:url": "string",
+    "twitter:title": "string",
+    "twitter:description": "string"
+  },
+  "error_message": "string",
+  "session_id": "null",
+  "response_headers": {
+    "access-control-allow-headers": "string",
+    "access-control-allow-methods": "string",
+    "access-control-allow-origin": "string",
+    "cache-control": "string",
+    "connection": "string",
+    "content-encoding": "string",
+    "content-length": "string",
+    "content-security-policy": "string",
+    "content-type": "string",
+    "date": "string",
+    "referrer-policy": "string",
+    "server": "string",
+    "vary": "string",
+    "x-content-type-options": "string",
+    "x-frame-options": "string",
+    "x-powered-by": "string",
+    "x-xss-protection": "string"
+  },
+  "status_code": "number",
+  "ssl_certificate": "null",
+  "dispatch_result": "null",
+  "redirected_url": "string",
+  "network_requests": "null",
+  "console_messages": "null",
+  "tables": "array",
+  "head_fingerprint": "string",
+  "cached_at": "null",
+  "cache_status": "string",
+  "markdown": {
+    "raw_markdown": "string",
+    "markdown_with_citations": "string",
+    "fit_markdown": "string",
+    "fit_html": "string"
+  }
+} -->

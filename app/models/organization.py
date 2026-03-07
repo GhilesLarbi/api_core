@@ -1,7 +1,7 @@
 from __future__ import annotations
 import uuid
 from typing import List
-from sqlalchemy import String
+from sqlalchemy import String, ARRAY, null
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import UUID
 from app.models.base import Base
@@ -18,5 +18,4 @@ class Organization(Base):
     name: Mapped[str] = mapped_column(String, nullable=False)    
     slug: Mapped[str] = mapped_column(String, unique=True, index=True, nullable=False)
     url: Mapped[str | None] = mapped_column(String, nullable=True)
-
     documents: Mapped[List["Document"]] = relationship("Document", back_populates="organization", cascade="all, delete-orphan")

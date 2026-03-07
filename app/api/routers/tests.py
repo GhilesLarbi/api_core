@@ -2,8 +2,6 @@ from fastapi import APIRouter, Depends, HTTPException
 from app.core.database import get_db
 from app.core.embeddings import get_embedding_model
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.background_tasks.crawler import crawl_site_task
-from app.background_tasks.scraper import scrape_and_store_url_task
 from app.repositories.organization import OrganizationRepository
 from app.repositories.chunk import ChunkRepository
 from app.models.enums import LanguageEnum
@@ -11,26 +9,56 @@ from langdetect import detect
 from app.core.ranker import get_ranker
 from flashrank import RerankRequest
 
+from crawl4ai.docker_client import Crawl4aiDockerClient
+from crawl4ai import CrawlerRunConfig, CacheMode
+from crawl4ai.deep_crawling import BFSDeepCrawlStrategy
+from crawl4ai.content_filter_strategy import PruningContentFilter
+from crawl4ai.markdown_generation_strategy import DefaultMarkdownGenerator
+from crawl4ai.content_scraping_strategy import LXMLWebScrapingStrategy
 
 router = APIRouter()
 
 ##########################################################################################
 ##########################################################################################
 @router.get("/test")
-async def test(
-    url: str,
-    max_pages: int,
-    org_slug: str
-):
-    # task_handle = await crawl_site_task.kiq(url=url, max_pages=max_pages)
-    task_handle = await scrape_and_store_url_task.kiq(url=url, org_slug=org_slug)
-    result = await task_handle.wait_result()
-    
-    return {
-        "task_id": task_handle.task_id,
-        "worker_output": result.return_value
-    }
+async def crawl_test(url: str, depth: int = 1):
+    prune_filter = PruningContentFilter(
+        threshold=0.4,
+        threshold_type="dynamic",
+        min_word_threshold=5
+    )
 
+    md_generator = DefaultMarkdownGenerator(
+        content_filter=prune_filter,
+        options={
+            "ignore_links": True,
+            "ignore_images": True,
+            "skip_internal_links": True
+        }
+    )
+
+    deep_search_strat = BFSDeepCrawlStrategy(
+        max_depth=depth,
+        include_external=False,
+        max_pages=20
+    )
+
+    run_conf = CrawlerRunConfig(
+        deep_crawl_strategy=deep_search_strat,
+        markdown_generator=md_generator,
+        scraping_strategy=LXMLWebScrapingStrategy(),
+        cache_mode=CacheMode.BYPASS,
+        verbose=True
+    )
+
+    async with Crawl4aiDockerClient(base_url="http://crawl4ai:11235", timeout=600.0) as client:
+        results = await client.crawl(
+            urls=[url],
+            crawler_config=run_conf
+        )
+
+        return results
+    
 ##########################################################################################
 ##########################################################################################
 @router.post("/vectorize")

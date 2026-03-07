@@ -52,7 +52,8 @@ async def get_organization_stats(slug: str, db: AsyncSession = Depends(get_db)):
 @router.post("/{slug}/sync")
 async def start_scraping(
     slug: str, 
-    max_pages: int = 100, 
+    max_pages: int = 1000,
+    depth: int = 10,
     db: AsyncSession = Depends(get_db)
 ):
     repo = OrganizationRepository(db)
@@ -60,15 +61,12 @@ async def start_scraping(
     if not org or not org.url:
         raise HTTPException(status_code=404, detail="Org not found or has no URL configured")
 
-    async with httpx.AsyncClient(verify=False, timeout=10.0) as client:
-        try:
-            resp = await client.get(org.url, follow_redirects=True)
-            resp.raise_for_status()
-        except Exception as e:
-            raise HTTPException(status_code=400, detail=f"Source URL is unreachable: {str(e)}")
+    task = await sync_site_task.kiq(
+        org_slug=slug, 
+        max_pages=max_pages,
+        depth=depth
+    )
 
-    task = await sync_site_task.kiq(url=org.url, org_slug=slug, max_pages=max_pages)
-    
     return {
         "status": "started",
         "task_id": task.task_id,

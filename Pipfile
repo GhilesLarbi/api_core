@@ -25,6 +25,8 @@ trafilatura = "*"
 certifi = "*"
 crawlee = {extras = ["beautifulsoup"], version = "*"}
 flashrank = "*"
+playwright = "*"
+crawl4ai = "*"
 
 [dev-packages]
 
