@@ -1,0 +1,1782 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+app/
+  api/
+    dependencies/
+      auth.py
+      factories.py
+    endpoints/
+      posts.py
+      profiles.py
+      users.py
+    router.py
+  core/
+    config.py
+    db_sessions.py
+    secrets.py
+    security.py
+  models/
+    post/
+      __init__.py
+      post.py
+    profile/
+      __init__.py
+      profile.py
+    user/
+      user.py
+    __init__.py
+    base.py
+  repositories/
+    post/
+      post_repository.py
+    profile/
+      profile_repository.py
+    user/
+      user_repository.py
+    __init__.py
+    base_repository.py
+  schemas/
+    post_schemas.py
+    profile_schemas.py
+    user_schemas.py
+  services/
+    post/
+      post_service.py
+    profile/
+      profile_service.py
+    user/
+      user_service.py
+    base_service.py
+    service_provider.py
+  __init__.py
+  main.py
+migrations/
+  versions/
+    2dd1aa59c0a0_first_models.py
+  env.py
+  README
+  script.py.mako
+.gitignore
+alembic.ini
+compose.yaml
+Dockerfile
+Pipfile
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="app/api/dependencies/auth.py">
+from fastapi import Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer
+from typing import Annotated
+from uuid import UUID
+
+from app.core.security import decode_access_token
+from app.api.dependencies.factories import UserServiceDep, PostServiceDep, ProfileServiceDep
+from app.models import User, Profile, Post
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"/api/v1/users/login")
+
+async def get_authenticated_user(
+    token: Annotated[str, Depends(oauth2_scheme)],
+    user_service: UserServiceDep
+) -> User:
+    user_id_str = decode_access_token(token)
+    if not user_id_str:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Could not validate credentials",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    
+    user = await user_service.get_user(user_id=UUID(user_id_str))
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user
+
+async def get_owned_profile(
+    profile_id: UUID,
+    current_user: Annotated[User, Depends(get_authenticated_user)],
+    profile_service: ProfileServiceDep
+) -> Profile:
+    profile = await profile_service.get_profile(profile_id)
+    if not profile or profile.user_id != current_user.id:
+        raise HTTPException(status_code=403, detail="Not authorized to access this profile")
+    return profile
+
+async def get_owned_post(
+    post_id: UUID,
+    current_user: Annotated[User, Depends(get_authenticated_user)],
+    post_service: PostServiceDep
+) -> Post:
+    post = await post_service.get_post_by_id_and_user(post_id, current_user.id)
+    if not post:
+        raise HTTPException(status_code=403, detail="Not authorized to access this post")
+    return post
+
+AuthenticatedUser = Annotated[User, Depends(get_authenticated_user)]
+OwnedProfile = Annotated[Profile, Depends(get_owned_profile)]
+OwnedPost = Annotated[Post, Depends(get_owned_post)]
+</file>
+
+<file path="app/api/dependencies/factories.py">
+from fastapi import Depends
+from typing import Annotated, AsyncGenerator
+
+from app.services.service_provider import ServiceProvider
+from app.services.user.user_service import UserService
+from app.services.profile.profile_service import ProfileService
+from app.services.post.post_service import PostService
+
+from app.core.db_sessions import AsyncSessionLocal
+
+#################################################################################
+# ---  Providers ---
+#################################################################################
+
+async def get_service_provider() -> AsyncGenerator[ServiceProvider, None]:    
+    provider = ServiceProvider(session_factory=AsyncSessionLocal)
+    try:
+        yield provider
+    finally:
+        await provider._close_current_session()
+
+
+ServiceProviderDep = Annotated[ServiceProvider, Depends(get_service_provider)]
+
+#################################################################################
+# --- Service Factories ---
+#################################################################################
+def get_user_service(services: ServiceProviderDep) -> UserService:
+    return services.user_service
+
+def get_profile_service(services: ServiceProviderDep) -> ProfileService:
+    return services.profile_service
+
+def get_post_service(services: ServiceProviderDep) -> PostService:
+    return services.post_service
+
+
+UserServiceDep = Annotated[UserService, Depends(get_user_service)]
+ProfileServiceDep = Annotated[ProfileService, Depends(get_profile_service)]
+PostServiceDep = Annotated[PostService, Depends(get_post_service)]
+</file>
+
+<file path="app/api/endpoints/posts.py">
+from fastapi import APIRouter
+from app.schemas import post_schemas
+from app.api.dependencies.factories import PostServiceDep, ProfileServiceDep
+from app.api.dependencies.auth import AuthenticatedUser, OwnedPost
+
+router = APIRouter()
+
+@router.post("/duplicate", response_model=post_schemas.PostResponse)
+async def duplicate_post(db_post: OwnedPost, db_user: AuthenticatedUser, post_service: PostServiceDep): 
+    return await post_service.duplicate_post(post_id=db_post.id, user_id=db_user.id)
+
+@router.put("/{post_id}", response_model=post_schemas.PostResponse)
+async def update_post_by_id(post_update: post_schemas.PostUpdate, db_post: OwnedPost, post_service: PostServiceDep):
+    return await post_service.update_post_from_schema(update_schema=post_update, db_post=db_post)
+
+@router.get("/{post_id}", response_model=post_schemas.PostResponse)
+async def retrieve_post_by_id(db_post: OwnedPost):
+    return db_post
+
+@router.delete("/{post_id}")
+async def delete_single_post(db_post: OwnedPost, post_service: PostServiceDep):
+    await post_service.delete_post(db_post=db_post)
+    return {"success": True, "message":"post deleted successfully !"}
+
+@router.post("", response_model=post_schemas.PostResponse)
+async def create_post(post: post_schemas.PostCreate, db_user: AuthenticatedUser, profile_service: ProfileServiceDep, post_service: PostServiceDep):    
+    await profile_service.get_and_verify_ownership(profile_id=post.profile_id, user_id=db_user.id)
+    db_post = await post_service.create_post_from_schema(create_schema=post, user_id=db_user.id)
+    await post_service.process_post_publication(post_id=db_post.id)
+    return db_post
+</file>
+
+<file path="app/api/endpoints/profiles.py">
+from fastapi import APIRouter
+from app.schemas import profile_schemas
+from app.api.dependencies.factories import ProfileServiceDep
+from app.api.dependencies.auth import AuthenticatedUser, OwnedProfile
+from typing import List
+
+router = APIRouter()
+
+@router.post("/create", response_model=profile_schemas.ProfileResponse)
+async def create_user_profile(profile_create: profile_schemas.ProfileCreate, db_user: AuthenticatedUser, profile_service: ProfileServiceDep):
+    return await profile_service.create_profile_for_user(user_id=db_user.id, profile_create=profile_create)
+
+@router.get("/me/all", response_model=List[profile_schemas.ProfileResponse])
+async def read_all_profiles_for_current_user(db_user: AuthenticatedUser, profile_service: ProfileServiceDep):
+    return await profile_service.get_user_profiles_for_response(user_id=db_user.id)
+
+@router.put("/{profile_id}", response_model=profile_schemas.ProfileResponse)
+async def update_profile_for_current_user(profile_update: profile_schemas.ProfileUpdate, db_profile: OwnedProfile, profile_service: ProfileServiceDep):
+    return await profile_service.update_profile(profile_id=db_profile.id, profile_update=profile_update)
+
+@router.delete("/{profile_id}")
+async def delete_profile_for_current_user(db_profile: OwnedProfile, profile_service: ProfileServiceDep):
+    await profile_service.delete_profile(profile_id=db_profile.id)
+    return {"success": True, "message": "Profile deleted successfully"}
+</file>
+
+<file path="app/api/endpoints/users.py">
+from app.api.dependencies.factories import UserServiceDep
+from app.api.dependencies.auth import AuthenticatedUser
+from fastapi import APIRouter, Depends
+from fastapi.security import OAuth2PasswordRequestForm
+from app.schemas import user_schemas
+from typing import Annotated
+
+router = APIRouter()
+
+@router.post("", response_model=user_schemas.UserTokenResponse)
+async def register_new_user(user_create: user_schemas.UserCreate, user_service: UserServiceDep):
+    return await user_service.register_new_user(user_create)
+
+@router.post("/login", response_model=user_schemas.UserTokenResponse, tags=["Authentication"])
+async def login_for_access_token(user_service: UserServiceDep, form_data: Annotated[OAuth2PasswordRequestForm, Depends()]): 
+    return await user_service.authenticate_user(email=form_data.username, password=form_data.password)
+
+@router.get("/me", response_model=user_schemas.UserResponse)
+async def read_current_user(db_user: AuthenticatedUser):
+    return db_user
+
+@router.delete("")
+async def delete_own_user_account(db_user: AuthenticatedUser, user_service: UserServiceDep):
+    await user_service.delete_user(db_user.id)
+    return {"success": True}
+
+@router.put("", response_model=user_schemas.UserResponse)
+async def update_user(user_update: user_schemas.UserUpdate, db_user: AuthenticatedUser, user_service: UserServiceDep):
+    return await user_service.update_user(user_id=db_user.id, user_update=user_update)
+</file>
+
+<file path="app/api/router.py">
+from fastapi import APIRouter
+from .endpoints import (
+    users, 
+    profiles, 
+    posts
+)
+
+    
+router = APIRouter() 
+
+router.include_router(posts.router, prefix="/posts", tags=["Posts"])
+router.include_router(users.router, prefix="/users", tags=["Users"])
+router.include_router(profiles.router, prefix="/profiles", tags=["Profiles"])
+</file>
+
+<file path="app/core/config.py">
+from pydantic import AnyHttpUrl
+from pydantic_settings import BaseSettings
+
+class Settings(BaseSettings):
+    PROJECT_NAME: str = "Crosspost"
+
+    API_HOST: str = '0.0.0.0'
+    API_PORT: int = 8000
+    API_V1_STR: str = "/api/v1"
+
+    SERVER_HOST: AnyHttpUrl = f"http://127.0.0.1:8000" 
+    FRONTEND_HOST: AnyHttpUrl = "http://localhost:3000"
+
+    REFRESH_TOKEN_EXPIRE_DAYS: int = 180 # 6 months
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 15
+    ALGORITHM: str = "HS256"    
+
+    DEBUG: bool = False
+
+    
+settings = Settings()
+</file>
+
+<file path="app/core/db_sessions.py">
+from typing import AsyncGenerator
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+from app.core.secrets import secrets
+
+#################################################################################################
+#################################################################################################
+def get_postgresql_url() -> str:
+    DB_user = secrets.POSTGRES_USER
+    DB_pass = secrets.POSTGRES_PASSWORD
+    DB_name = secrets.POSTGRES_DB
+    DB_port = secrets.POSTGRES_PORT
+    DB_host = secrets.POSTGRES_PROXY_HOST
+
+    # print( f"postgresql+asyncpg://{DB_user}:{DB_pass}@{DB_host}:{DB_port}/{DB_name}")
+    return f"postgresql+asyncpg://{DB_user}:{DB_pass}@{DB_host}:{DB_port}/{DB_name}"
+
+
+
+SQLALCHEMY_DATABASE_URL = get_postgresql_url()
+
+
+
+#################################################################################################
+#################################################################################################
+async_engine = create_async_engine(
+    SQLALCHEMY_DATABASE_URL, 
+    pool_pre_ping=True, 
+    pool_size=30, 
+    max_overflow=50, 
+    pool_timeout=30, 
+    pool_recycle=1800, 
+    echo=False
+)
+AsyncSessionLocal = sessionmaker(
+    autocommit=False, 
+    class_=AsyncSession, 
+    autoflush=True, 
+    bind=async_engine, 
+    expire_on_commit=False
+)
+
+#################################################################################################
+#################################################################################################
+async def get_async_db() -> AsyncGenerator[AsyncSession, None]:
+    """
+    Dependency that provides a transactional SQLAlchemy async session.
+    It automatically commits the transaction if the request is successful,
+    and rolls back if any exception occurs.
+    """
+    async with AsyncSessionLocal() as session:
+        try:
+            yield session
+            await session.commit()            
+        except Exception as e:
+            await session.rollback()     
+            raise
+        finally: 
+            await session.close()
+</file>
+
+<file path="app/core/secrets.py">
+from pydantic_settings import BaseSettings, SettingsConfigDict
+from typing import Optional, Any, TYPE_CHECKING
+
+
+_SECRETS_CACHE: Optional["Secrets"] = None 
+
+class Secrets(BaseSettings):
+    ADMIN_USER_EMAIL: str
+    ADMIN_USER_PASSWORD: str
+    TEST_USER_EMAIL: str
+    TEST_USER_PASSWORD: str
+
+
+    POSTGRES_DB: str
+    POSTGRES_USER: str
+    POSTGRES_PASSWORD: str
+    POSTGRES_PORT: str
+    POSTGRES_HOST: str
+    POSTGRES_PROXY_HOST: str
+
+    SECRET_KEY: str        
+
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding='utf-8',
+        case_sensitive=False,
+        extra='ignore'
+    )
+
+
+def get_secrets() -> Secrets:
+    global _SECRETS_CACHE
+    if _SECRETS_CACHE is not None:
+        return _SECRETS_CACHE
+    
+    _SECRETS_CACHE = Secrets()
+    return _SECRETS_CACHE
+
+
+
+############################################################################
+############################################################################
+class SecretsProxy:
+    def __getattr__(self, name: str) -> Any:
+        real_secrets = get_secrets()
+        return getattr(real_secrets, name)
+
+if TYPE_CHECKING:
+    secrets = Secrets()
+else:
+    secrets = SecretsProxy()
+</file>
+
+<file path="app/core/security.py">
+import bcrypt
+import jwt
+from datetime import datetime, timedelta, timezone
+from app.core.secrets import secrets
+from app.core.config import settings
+
+def get_password_hash(password: str) -> str:
+    pwd_bytes = password.encode('utf-8')
+    salt = bcrypt.gensalt()
+    return bcrypt.hashpw(pwd_bytes, salt).decode('utf-8')
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    password_byte_enc = plain_password.encode('utf-8')
+    hashed_password_bytes = hashed_password.encode('utf-8')
+    return bcrypt.checkpw(password_byte_enc, hashed_password_bytes)
+
+def create_access_token(subject: str | int) -> str:
+    expire = datetime.now(timezone.utc) + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+    to_encode = {"exp": expire, "sub": str(subject)}
+    return jwt.encode(
+        to_encode, 
+        secrets.SECRET_KEY, 
+        algorithm=settings.ALGORITHM
+    )
+
+def decode_access_token(token: str) -> str | None:
+    try:
+        payload = jwt.decode(
+            token, 
+            secrets.SECRET_KEY, 
+            algorithms=[settings.ALGORITHM]
+        )
+        return payload.get("sub")
+    except (jwt.InvalidTokenError, jwt.ExpiredSignatureError):
+        return None
+</file>
+
+<file path="app/models/post/__init__.py">
+from .post import Post
+
+__all__ = [
+    "Post"
+]
+</file>
+
+<file path="app/models/post/post.py">
+from __future__ import annotations
+
+from sqlalchemy import ForeignKey, DateTime, Boolean, null
+from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import mapped_column, Mapped, relationship
+from sqlalchemy.sql import func
+from app.models.base import Base
+from typing import TYPE_CHECKING
+
+from datetime import datetime, timezone
+import uuid
+
+if TYPE_CHECKING:
+    from .. import Profile
+
+
+class Post(Base):
+    __tablename__ = "posts"
+
+    id: Mapped[UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
+    scheduled_time: Mapped[DateTime] = mapped_column(DateTime(timezone=True), nullable=True, default=None, server_default=null(), index=True)
+
+    is_approved : Mapped[bool] = mapped_column(Boolean, nullable=True, default=None, server_default=null())
+
+    updated_at: Mapped[DateTime] = mapped_column(DateTime(timezone=True), server_default=func.now(), onupdate=lambda: datetime.now(timezone.utc), default=lambda: datetime.now(timezone.utc))
+
+    profile_id: Mapped[UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("profiles.id", ondelete="CASCADE"), nullable=False, index=True)
+    profile: Mapped["Profile"] = relationship(back_populates="posts")
+</file>
+
+<file path="app/models/profile/__init__.py">
+from .profile import Profile
+
+__all__ = [
+    "Profile"
+]
+</file>
+
+<file path="app/models/profile/profile.py">
+from __future__ import annotations
+
+from sqlalchemy import ForeignKey, DateTime, String, null
+from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import mapped_column, Mapped, relationship
+from sqlalchemy.sql import func
+from app.models.base import Base
+import uuid
+
+from typing import List, TYPE_CHECKING
+
+
+if TYPE_CHECKING:
+    from .. import (Post, User)
+
+
+class Profile(Base):
+    __tablename__ = "profiles"
+
+    id: Mapped[UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
+    name: Mapped[str] = mapped_column(String, unique=False, nullable=True, default=None, server_default=null())
+    avatar_url: Mapped[str] = mapped_column(String, nullable=True, default=None, server_default=null())
+
+    created_at: Mapped[DateTime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    
+    # User Relationship
+    user_id: Mapped[UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    user: Mapped["User"] = relationship(back_populates="profiles")
+
+    posts: Mapped[List["Post"]] = relationship(back_populates="profile", cascade="all, delete-orphan")
+</file>
+
+<file path="app/models/user/user.py">
+from __future__ import annotations
+
+from sqlalchemy import String
+from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import mapped_column, Mapped, relationship
+from app.models.base import Base
+import uuid
+
+from typing import List, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .. import Profile
+
+class User(Base):
+    __tablename__ = "users"
+
+    id: Mapped[UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
+    first_name: Mapped[str] = mapped_column(String, unique=False, index=True, nullable=True)
+    last_name: Mapped[str] = mapped_column(String, unique=False, index=True, nullable=True)
+    email: Mapped[str] = mapped_column(String, unique=True, index=True, nullable=False)
+    hashed_password: Mapped[str] = mapped_column(String, nullable=True)
+
+    # Relationships
+    profiles: Mapped[List["Profile"]] = relationship(back_populates="user", cascade="all, delete-orphan")
+</file>
+
+<file path="app/models/__init__.py">
+from .post import (Post)
+
+from .user.user import (User)
+
+from .profile import (Profile)
+
+__all__ = [
+"Post",
+"User", 
+"Profile"
+]
+</file>
+
+<file path="app/models/base.py">
+from sqlalchemy.ext.asyncio import AsyncAttrs
+from sqlalchemy.orm import DeclarativeBase
+
+class Base(AsyncAttrs, DeclarativeBase):
+    pass
+</file>
+
+<file path="app/repositories/post/post_repository.py">
+from app.repositories.base_repository import BaseRepository
+from app.models import Post, Profile
+from sqlalchemy import select, delete, update
+from uuid import UUID
+from typing import Dict, Any
+
+class PostRepository(BaseRepository):
+
+    async def get_by_id(self, post_id: UUID) -> Post | None:
+        stmt = select(Post).where(Post.id == post_id)
+        result = await self.session.execute(stmt)
+        return result.scalar_one_or_none()
+
+    async def get_by_id_and_user_id(self, post_id: UUID, user_id: UUID) -> Post | None:
+        stmt = (
+            select(Post)
+            .join(Post.profile)
+            .where(
+                Post.id == post_id,
+                Profile.user_id == user_id
+            )
+        )
+        result = await self.session.execute(stmt)
+        return result.scalar_one_or_none()
+
+    async def create(self, data: Dict[str, Any]) -> Post:
+        db_post = Post(**data)
+        self.session.add(db_post)
+        return db_post
+
+    async def update(self, post_id: UUID, data: Dict[str, Any]) -> Post | None:
+        stmt = (
+            update(Post)
+            .where(Post.id == post_id)
+            .values(**data)
+            .returning(Post)
+        )
+        result = await self.session.execute(stmt)
+        return result.scalar_one_or_none()
+
+    async def delete(self, post_id: UUID) -> bool: 
+        stmt = delete(Post).where(Post.id == post_id)
+        result = await self.session.execute(stmt)
+        return result.rowcount > 0
+    
+    async def delete_by_profile_id(self, profile_id: UUID) -> int: 
+        stmt = delete(Post).where(Post.profile_id == profile_id)
+        result = await self.session.execute(stmt)
+        return result.rowcount
+</file>
+
+<file path="app/repositories/profile/profile_repository.py">
+from app.repositories.base_repository import BaseRepository
+from app.models import Profile
+from sqlalchemy import select, update, delete
+from typing import List, Dict, Any
+from uuid import UUID
+
+class ProfileRepository(BaseRepository):
+
+    #########################################################################################################
+    #########################################################################################################
+    async def get_by_id(self, profile_id: UUID) -> Profile | None: 
+        stmt = select(Profile).where(
+            Profile.id == profile_id,
+        )
+        result = await self.session.execute(stmt)
+        return result.scalar_one_or_none()
+
+    
+    #########################################################################################################
+    #########################################################################################################
+    async def get_by_ids(self, profile_ids: List[UUID]) -> List[Profile]:
+        """Get profiles by a list of IDs"""
+        stmt = select(Profile).where(
+            Profile.id.in_(profile_ids),
+        )
+
+        result = await self.session.execute(stmt)
+        return result.scalars().all()
+
+
+    #########################################################################################################
+    #########################################################################################################
+    async def get_by_user_id(self, user_id: UUID) -> List[Profile]:
+        stmt = (
+            select(Profile)
+            .where(
+                Profile.user_id == user_id,
+            )
+        )
+        result = await self.session.execute(stmt)
+        return result.scalars().all()
+
+    
+    #########################################################################################################
+    #########################################################################################################
+    async def create(self, data: Dict[str, Any]) -> Profile:
+        """Create a profile"""
+        db_profile = Profile(**data)
+        self.session.add(db_profile)
+        return db_profile
+
+
+
+    #########################################################################################################
+    #########################################################################################################
+    async def update(self, profile_id: UUID, data: Dict[str, Any]) -> Profile | None: 
+        """Update a profile"""
+        stmt = (
+            update(Profile)
+            .where(Profile.id == profile_id)
+            .values(**data)
+            .returning(Profile)
+        )
+
+        result = await self.session.execute(stmt)
+        return result.scalar_one_or_none()
+
+
+    #########################################################################################################
+    #########################################################################################################
+    async def delete(self, profile_id: UUID) -> bool:
+        """
+        delete profile from database.
+        """
+        stmt = (
+            delete(Profile)
+            .where(Profile.id == profile_id)
+        )
+        result = await self.session.execute(stmt)
+        return result.rowcount > 0
+</file>
+
+<file path="app/repositories/user/user_repository.py">
+from app.repositories.base_repository import BaseRepository
+from app.models import User, Profile
+from sqlalchemy import select, update, delete, func
+from sqlalchemy.orm import selectinload
+from typing import List, Dict, Any
+import uuid
+
+class UserRepository(BaseRepository):
+
+    async def get_by_id(self, user_id: uuid.UUID) -> User | None:
+        """Gets a user by ID with profiles eagerly loaded."""
+        stmt = (
+            select(User)
+            .where(User.id == user_id)
+            .options(selectinload(User.profiles))
+        )
+        result = await self.session.execute(stmt)
+        return result.scalar_one_or_none()
+
+    async def get_by_email(self, email: str) -> User | None: 
+        """Gets a user by email."""
+        stmt = select(User).where(func.lower(User.email) == email.lower())
+        result = await self.session.execute(stmt)
+        return result.scalar_one_or_none()
+
+    async def list_for_overview(self, skip: int = 0, limit: int = 100) -> List[User]: 
+        stmt = (
+            select(User)
+            .options(selectinload(User.profiles))
+            .offset(skip)
+            .limit(limit)
+        )
+        result = await self.session.execute(stmt)
+        return result.unique().scalars().all()
+
+    async def create(self, data: Dict[str, Any]) -> User:
+        db_user = User(**data)
+        self.session.add(db_user)
+        return db_user
+    
+    async def update(self, user_id: uuid.UUID, data: Dict[str, Any]) -> User | None: 
+        stmt = (
+            update(User)
+            .where(User.id == user_id)
+            .values(**data)
+            .returning(User)
+        )
+        result = await self.session.execute(stmt)
+        return result.scalar_one_or_none()
+
+    async def delete(self, user_id: uuid.UUID) -> bool: 
+        stmt = delete(User).where(User.id == user_id)
+        result = await self.session.execute(stmt)
+        return result.rowcount > 0
+</file>
+
+<file path="app/repositories/__init__.py">
+from .user.user_repository import UserRepository
+from .post.post_repository import PostRepository
+from .profile.profile_repository import ProfileRepository
+
+__all__ = [
+"UserRepository", 
+"PostRepository", 
+"ProfileRepository", 
+]
+</file>
+
+<file path="app/repositories/base_repository.py">
+from sqlalchemy.ext.asyncio import AsyncSession
+
+class BaseRepository:
+    def __init__(self, session: AsyncSession):
+        self.session = session
+</file>
+
+<file path="app/schemas/post_schemas.py">
+from pydantic import BaseModel, ConfigDict
+from uuid import UUID
+from datetime import datetime
+from typing import Optional
+
+# external
+class PostCreate(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    profile_id: UUID
+    is_approved: Optional[bool] = None
+    draft: Optional[bool] = False
+    scheduled_time: Optional[datetime] = None
+
+
+    
+# external
+class PostUpdate(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    
+    is_approved: Optional[bool] = None
+    draft: Optional[bool] = False
+    scheduled_time: Optional[datetime] = None
+
+
+# external
+class PostResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+
+    id: UUID
+    profile_id: UUID
+    is_approved: Optional[bool] = None
+    scheduled_time: Optional[datetime] = None
+    updated_at: datetime
+    is_hidden: bool
+</file>
+
+<file path="app/schemas/profile_schemas.py">
+from uuid import UUID
+from pydantic import BaseModel, ConfigDict, AnyHttpUrl
+from typing import Optional
+from datetime import datetime
+
+
+
+
+# external
+class ProfileCreate(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    name: str
+    
+
+# extearnal
+class ProfileUpdate(BaseModel):
+    name: Optional[str] = None
+    avatar_url: Optional[AnyHttpUrl] = None
+
+
+
+# external
+class ProfileResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    id: UUID
+    user_id: UUID
+    avatar_url: Optional[str] = None
+    name: Optional[str] = None
+    created_at: datetime
+</file>
+
+<file path="app/schemas/user_schemas.py">
+from uuid import UUID
+from pydantic import BaseModel, EmailStr, ConfigDict, ValidationInfo, field_validator
+from typing import List, Optional
+from datetime import datetime
+
+from app.schemas import profile_schemas
+
+
+
+
+##################################################
+##################################################
+class UserCreate(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    email: EmailStr
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    password: str | None
+    
+    @field_validator('email')
+    def lowercase_email(cls, v: str, info: ValidationInfo) -> str:
+        return v.lower()
+
+
+##################################################
+##################################################
+class UserUpdate(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    email: Optional[EmailStr] = None
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+
+    old_password: Optional[str] = None
+    new_password: Optional[str]  = None
+
+
+    @field_validator('email')
+    def lowercase_email(cls, v: str, info: ValidationInfo) -> str:
+        if v:
+            return v.lower()
+        return v
+    
+    
+
+
+##################################################
+##################################################
+class UserResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    id: UUID
+
+    created_at: Optional[datetime] = None
+    email: EmailStr
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+
+    profiles: Optional[List[profile_schemas.ProfileResponse]] = []
+
+
+
+##################################################
+##################################################
+class UserTokenResponse(BaseModel):
+    access_token: Optional[str] = None
+    user: Optional[UserResponse] = None
+</file>
+
+<file path="app/services/post/post_service.py">
+from uuid import UUID
+from typing import TYPE_CHECKING, Optional
+from fastapi import HTTPException
+from app.services.base_service import BaseService
+from app.models import Post
+from app.schemas import post_schemas
+
+if TYPE_CHECKING : 
+    from app.services.service_provider import ServiceProvider
+    from app.repositories import PostRepository
+
+class PostService(BaseService):
+    def __init__(self, provider: "ServiceProvider"):
+        super().__init__(provider)
+
+    @property
+    def post_repo(self) -> 'PostRepository':
+        return self.provider.post_repo
+
+    async def create_post_from_schema(self, create_schema: post_schemas.PostCreate, user_id: UUID) -> Post: 
+        data = create_schema.model_dump()
+        db_post = await self.post_repo.create(data)
+        await self.session.commit()
+        await self.session.refresh(db_post)
+        return db_post
+
+    async def update_post_from_schema(self, update_schema: post_schemas.PostUpdate, db_post: Post) -> Post:
+        data = update_schema.model_dump(exclude_unset=True)
+        updated_post = await self.post_repo.update(db_post.id, data)
+        await self.session.commit()
+        return updated_post
+
+    async def process_post_publication(self, post_id: UUID):
+        pass
+
+    async def get_post(self, post_id: UUID) -> Optional[Post]: 
+        return await self.post_repo.get_by_id(post_id=post_id)
+
+    async def get_post_for_response(self, post_id: UUID) -> Post:
+        db_post = await self.get_post(post_id)
+        if not db_post:
+            raise HTTPException(status_code=404, detail="Post not found")
+        return db_post
+
+    async def get_post_by_id_and_user(self, post_id: UUID, user_id: UUID) -> Optional[Post]:
+        return await self.post_repo.get_by_id_and_user_id(post_id, user_id)
+
+    async def delete_post(self, db_post: Post) -> bool: 
+        success = await self.post_repo.delete(db_post.id)
+        await self.session.commit()
+        return success
+    
+    async def duplicate_post(self, post_id: UUID, user_id: UUID) -> Post: 
+        original = await self.get_post_by_id_and_user(post_id, user_id)
+        if not original:
+            raise HTTPException(status_code=404, detail="Original post not found")
+        
+        new_post = Post(
+            profile_id=original.profile_id,
+            scheduled_time=original.scheduled_time,
+            is_approved=original.is_approved
+        )
+        self.session.add(new_post)
+        await self.session.commit()
+        await self.session.refresh(new_post)
+        return new_post
+</file>
+
+<file path="app/services/profile/profile_service.py">
+from app.services.base_service import BaseService
+from app.schemas import profile_schemas
+from app.models import Profile
+from typing import List, Optional, TYPE_CHECKING
+from uuid import UUID
+from fastapi import HTTPException
+
+if TYPE_CHECKING : 
+    from app.services.service_provider import ServiceProvider
+    from app.repositories import ProfileRepository
+
+class ProfileService(BaseService):
+    def __init__(self, provider: "ServiceProvider"): 
+        super().__init__(provider)
+
+    @property
+    def profile_repo(self) -> "ProfileRepository":
+        return self.provider.profile_repo
+
+    async def create_profile_for_user(self, user_id: UUID, profile_create: profile_schemas.ProfileCreate) -> Profile: 
+        data = profile_create.model_dump()
+        data["user_id"] = user_id
+        db_profile = await self.profile_repo.create(data)
+        await self.session.commit()
+        await self.session.refresh(db_profile)
+        return db_profile
+    
+    async def update_profile(self, profile_id: UUID, profile_update: profile_schemas.ProfileUpdate) -> Profile:
+        data = profile_update.model_dump(exclude_unset=True)
+        if "avatar_url" in data and data["avatar_url"]:
+            data["avatar_url"] = str(data["avatar_url"])
+        
+        updated = await self.profile_repo.update(profile_id, data)
+        await self.session.commit()
+        return updated
+
+    async def get_profile(self, profile_id: UUID) -> Optional[Profile]:
+        return await self.profile_repo.get_by_id(profile_id)
+
+    async def get_profile_for_response(self, profile_id: UUID) -> Profile:
+        db_profile = await self.get_profile(profile_id)
+        if not db_profile:
+            raise HTTPException(status_code=404, detail="Profile not found")
+        return db_profile
+    
+    async def get_user_profiles_for_response(self, user_id: UUID) -> List[Profile]:
+        return await self.profile_repo.get_by_user_id(user_id=user_id)
+    
+    async def delete_profile(self, profile_id: UUID) -> bool: 
+        success = await self.profile_repo.delete(profile_id)
+        await self.session.commit()
+        return success
+
+    async def get_and_verify_ownership(self, profile_id: UUID, user_id: UUID) -> Profile:
+        profile = await self.get_profile(profile_id)
+        if not profile or profile.user_id != user_id:
+            raise HTTPException(status_code=403, detail="Forbidden: You do not own this profile")
+        return profile
+</file>
+
+<file path="app/services/user/user_service.py">
+from uuid import UUID
+from typing import TYPE_CHECKING, Optional
+from fastapi import HTTPException
+from app.services.base_service import BaseService
+from app.models import User
+from app.schemas import user_schemas
+from app.core.security import get_password_hash, verify_password, create_access_token
+
+if TYPE_CHECKING:
+    from app.services.service_provider import ServiceProvider
+    from app.repositories import UserRepository
+
+class UserService(BaseService):
+    def __init__(self, provider: "ServiceProvider"):
+        super().__init__(provider)
+
+    @property
+    def user_repo(self) -> "UserRepository":
+        return self.provider.user_repo
+
+    async def register_new_user(self, user_create: user_schemas.UserCreate) -> user_schemas.UserTokenResponse:
+        existing = await self.user_repo.get_by_email(user_create.email)
+        if existing:
+            raise HTTPException(status_code=400, detail="Email already registered")
+        
+        user_data = user_create.model_dump()
+        password = user_data.pop("password")
+        user_data["hashed_password"] = get_password_hash(password)
+        
+        db_user = await self.user_repo.create(user_data)
+        
+        # We must commit to get the ID
+        await self.session.commit()
+        await self.session.refresh(db_user)
+        
+        # CRITICAL FIX: Manually set profiles to empty list. 
+        # This prevents Pydantic from triggering a Lazy Load on the 'profiles' relationship.
+        db_user.profiles = []
+        
+        token = create_access_token(db_user.id)
+        return user_schemas.UserTokenResponse(access_token=token, user=db_user)
+
+    async def authenticate_user(self, email: str, password: str) -> user_schemas.UserTokenResponse:
+        # Use get_by_email then re-fetch with profiles if needed, 
+        # but for login we usually just need the user object.
+        db_user = await self.user_repo.get_by_email(email)
+        
+        if not db_user or not verify_password(password, db_user.hashed_password):
+            raise HTTPException(status_code=401, detail="Invalid email or password")
+        
+        # Re-fetch with profiles loaded for the response
+        db_user = await self.user_repo.get_by_id(db_user.id)
+        
+        token = create_access_token(db_user.id)
+        return user_schemas.UserTokenResponse(access_token=token, user=db_user)
+
+    async def get_user(self, user_id: UUID) -> Optional[User]:
+        return await self.user_repo.get_by_id(user_id)
+
+    async def get_user_for_response(self, user_id: UUID) -> User:
+        user = await self.get_user(user_id)
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found")
+        return user
+
+    async def update_user(self, user_id: UUID, user_update: user_schemas.UserUpdate) -> User:
+        db_user = await self.get_user_for_response(user_id)
+        update_data = user_update.model_dump(exclude_unset=True)
+        
+        if "new_password" in update_data and "old_password" in update_data:
+            if not verify_password(update_data["old_password"], db_user.hashed_password):
+                raise HTTPException(status_code=400, detail="Invalid old password")
+            update_data["hashed_password"] = get_password_hash(update_data.pop("new_password"))
+            update_data.pop("old_password")
+            
+        updated_user = await self.user_repo.update(user_id, update_data)
+        await self.session.commit()
+        # Re-fetch to ensure relationships are handled for response
+        return await self.user_repo.get_by_id(user_id)
+
+    async def delete_user(self, user_id: UUID) -> bool:
+        await self.user_repo.delete(user_id)
+        await self.session.commit()
+        return True
+</file>
+
+<file path="app/services/base_service.py">
+from typing import TYPE_CHECKING, Optional
+from sqlalchemy.ext.asyncio import AsyncSession
+
+if TYPE_CHECKING:
+    from app.services.service_provider import ServiceProvider
+
+class BaseService:
+    def __init__(self, provider: "ServiceProvider"):
+        self.provider = provider
+
+    @property
+    def session(self) -> Optional[AsyncSession]:
+        return self.provider.session
+</file>
+
+<file path="app/services/service_provider.py">
+from sqlalchemy.ext.asyncio import AsyncSession
+from typing import Type, Any, Callable, Dict, Optional
+from app.repositories import (
+    UserRepository, ProfileRepository, PostRepository
+)
+from app.services.user.user_service import UserService
+from app.services.profile.profile_service import ProfileService
+from app.services.post.post_service import PostService
+
+class ServiceProvider:
+    def __init__(self, session_factory: Callable[[], AsyncSession]):
+        self.session_factory = session_factory
+        self._session: Optional[AsyncSession] = None
+        self._repos: Dict[Type, Any] = {}
+        self._services: Dict[Type, Any] = {}
+
+    @property
+    def session(self) -> AsyncSession:
+        """Returns the current session, creating it if it doesn't exist."""
+        if self._session is None:
+            self._session = self.session_factory()
+        return self._session
+
+    async def _close_current_session(self) -> None:
+        """Closes the session if it was opened."""
+        if self._session is not None:
+            await self._session.close()
+            self._session = None
+
+    def _get_repo(self, repo_cls: Type) -> Any:
+        if repo_cls not in self._repos:
+            self._repos[repo_cls] = repo_cls(session=self.session)
+        return self._repos[repo_cls]
+
+    def _get_service(self, service_cls: Type) -> Any:
+        if service_cls not in self._services:
+            self._services[service_cls] = service_cls(provider=self)
+        return self._services[service_cls]
+
+    def get_by_class(self, dependency_class: Type) -> Any:
+        return self._get_service(dependency_class)
+
+    @property
+    def user_repo(self) -> UserRepository:
+        return self._get_repo(UserRepository)
+
+    @property
+    def profile_repo(self) -> ProfileRepository:
+        return self._get_repo(ProfileRepository)
+
+    @property
+    def post_repo(self) -> PostRepository:
+        return self._get_repo(PostRepository)
+
+    @property
+    def user_service(self) -> UserService:
+        return self._get_service(UserService)
+
+    @property
+    def profile_service(self) -> ProfileService:
+        return self._get_service(ProfileService)
+    
+    @property
+    def post_service(self) -> PostService:
+        return self._get_service(PostService)
+</file>
+
+<file path="app/__init__.py">
+
+</file>
+
+<file path="app/main.py">
+from app.core.config import settings
+from fastapi import FastAPI
+from app.api.router import router
+from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
+
+
+#####################################################################################
+#####################################################################################
+app = FastAPI(
+    title=settings.PROJECT_NAME, 
+    openapi_url=f"{settings.API_V1_STR}/openapi.json",
+)
+
+#####################################################################################
+#####################################################################################
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+#####################################################################################
+#####################################################################################
+app.include_router(router=router, prefix=settings.API_V1_STR)
+
+
+#####################################################################################
+#####################################################################################
+if __name__ == "__main__":    
+    uvicorn.run(
+        "app.main:app", 
+        host=settings.API_HOST, 
+        port=settings.API_PORT, 
+        reload=True,
+        log_level="info",
+        access_log=False,
+        use_colors=False,
+        timeout_graceful_shutdown=1
+    )
+</file>
+
+<file path="migrations/versions/2dd1aa59c0a0_first_models.py">
+"""first models
+
+Revision ID: 2dd1aa59c0a0
+Revises: 
+Create Date: 2026-03-11 23:06:07.952612
+
+"""
+from alembic import op
+import sqlalchemy as sa
+
+
+# revision identifiers, used by Alembic.
+revision = '2dd1aa59c0a0'
+down_revision = None
+branch_labels = None
+depends_on = None
+
+
+def upgrade() -> None:
+    # ### commands auto generated by Alembic - please adjust! ###
+    op.create_table('users',
+    sa.Column('id', sa.UUID(), nullable=False),
+    sa.Column('first_name', sa.String(), nullable=True),
+    sa.Column('last_name', sa.String(), nullable=True),
+    sa.Column('email', sa.String(), nullable=False),
+    sa.Column('hashed_password', sa.String(), nullable=True),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_index(op.f('ix_users_email'), 'users', ['email'], unique=True)
+    op.create_index(op.f('ix_users_first_name'), 'users', ['first_name'], unique=False)
+    op.create_index(op.f('ix_users_id'), 'users', ['id'], unique=False)
+    op.create_index(op.f('ix_users_last_name'), 'users', ['last_name'], unique=False)
+    op.create_table('profiles',
+    sa.Column('id', sa.UUID(), nullable=False),
+    sa.Column('name', sa.String(), server_default=sa.text('NULL'), nullable=True),
+    sa.Column('avatar_url', sa.String(), server_default=sa.text('NULL'), nullable=True),
+    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
+    sa.Column('user_id', sa.UUID(), nullable=False),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_index(op.f('ix_profiles_id'), 'profiles', ['id'], unique=False)
+    op.create_table('posts',
+    sa.Column('id', sa.UUID(), nullable=False),
+    sa.Column('scheduled_time', sa.DateTime(timezone=True), server_default=sa.text('NULL'), nullable=True),
+    sa.Column('is_approved', sa.Boolean(), server_default=sa.text('NULL'), nullable=True),
+    sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
+    sa.Column('profile_id', sa.UUID(), nullable=False),
+    sa.ForeignKeyConstraint(['profile_id'], ['profiles.id'], ondelete='CASCADE'),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_index(op.f('ix_posts_id'), 'posts', ['id'], unique=False)
+    op.create_index(op.f('ix_posts_profile_id'), 'posts', ['profile_id'], unique=False)
+    op.create_index(op.f('ix_posts_scheduled_time'), 'posts', ['scheduled_time'], unique=False)
+    # ### end Alembic commands ###
+
+
+def downgrade() -> None:
+    # ### commands auto generated by Alembic - please adjust! ###
+    op.drop_index(op.f('ix_posts_scheduled_time'), table_name='posts')
+    op.drop_index(op.f('ix_posts_profile_id'), table_name='posts')
+    op.drop_index(op.f('ix_posts_id'), table_name='posts')
+    op.drop_table('posts')
+    op.drop_index(op.f('ix_profiles_id'), table_name='profiles')
+    op.drop_table('profiles')
+    op.drop_index(op.f('ix_users_last_name'), table_name='users')
+    op.drop_index(op.f('ix_users_id'), table_name='users')
+    op.drop_index(op.f('ix_users_first_name'), table_name='users')
+    op.drop_index(op.f('ix_users_email'), table_name='users')
+    op.drop_table('users')
+    # ### end Alembic commands ###
+</file>
+
+<file path="migrations/env.py">
+import asyncio
+from logging.config import fileConfig
+
+from sqlalchemy import pool
+from sqlalchemy.engine import Connection
+from sqlalchemy.ext.asyncio import async_engine_from_config
+
+from alembic import context
+import alembic_postgresql_enum
+from app.models.base import Base
+from app.models import *
+
+# this is the Alembic Config object, which provides
+# access to the values within the .ini file in use.
+config = context.config
+
+# Interpret the config file for Python logging.
+# This line sets up loggers basically.
+if config.config_file_name is not None:
+    fileConfig(config.config_file_name)
+
+# add your model's MetaData object here
+# for 'autogenerate' support
+# from myapp import mymodel
+# target_metadata = mymodel.Base.metadata
+target_metadata = Base.metadata
+
+# other values from the config, defined by the needs of env.py,
+# can be acquired:
+# my_important_option = config.get_main_option("my_important_option")
+# ... etc.
+
+from app.core.db_sessions import get_postgresql_url
+
+def run_migrations_offline() -> None:
+    """Run migrations in 'offline' mode.
+
+    This configures the context with just a URL
+    and not an Engine, though an Engine is acceptable
+    here as well.  By skipping the Engine creation
+    we don't even need a DBAPI to be available.
+
+    Calls to context.execute() here emit the given string to the
+    script output.
+
+    """
+    url = get_postgresql_url() # config.get_main_option("sqlalchemy.url")
+    context.configure(
+        url=url,
+        target_metadata=target_metadata,
+        literal_binds=True,
+        dialect_opts={"paramstyle": "named"},
+        compare_server_default=True,
+        compare_type=True,
+    )
+
+    with context.begin_transaction():
+        context.run_migrations()
+
+
+def do_run_migrations(connection: Connection) -> None:
+    context.configure(
+        connection=connection, 
+        target_metadata=target_metadata,
+        # compare_server_default=True,
+    )
+
+    with context.begin_transaction():
+        context.run_migrations()
+
+
+async def run_async_migrations() -> None:
+    """In this scenario we need to create an Engine
+    and associate a connection with the context.
+
+    """
+    configuration = config.get_section(config.config_ini_section, {})
+    configuration["sqlalchemy.url"] = get_postgresql_url()
+    connectable = async_engine_from_config(
+        #config.get_section(config.config_ini_section, {}),
+        configuration,
+        prefix="sqlalchemy.",
+        poolclass=pool.NullPool,
+    )
+
+    async with connectable.connect() as connection:
+        await connection.run_sync(do_run_migrations)
+
+    await connectable.dispose()
+
+
+def run_migrations_online() -> None:
+    """Run migrations in 'online' mode."""
+
+    asyncio.run(run_async_migrations())
+
+
+if context.is_offline_mode():
+    run_migrations_offline()
+else:
+    run_migrations_online()
+</file>
+
+<file path="migrations/README">
+Generic single-database configuration with an async dbapi.
+</file>
+
+<file path="migrations/script.py.mako">
+"""${message}
+
+Revision ID: ${up_revision}
+Revises: ${down_revision | comma,n}
+Create Date: ${create_date}
+
+"""
+from alembic import op
+import sqlalchemy as sa
+${imports if imports else ""}
+
+# revision identifiers, used by Alembic.
+revision = ${repr(up_revision)}
+down_revision = ${repr(down_revision)}
+branch_labels = ${repr(branch_labels)}
+depends_on = ${repr(depends_on)}
+
+
+def upgrade() -> None:
+    ${upgrades if upgrades else "pass"}
+
+
+def downgrade() -> None:
+    ${downgrades if downgrades else "pass"}
+</file>
+
+<file path=".gitignore">
+__pycache__/
+*.py[cod]
+*$py.class
+celerybeat-schedule*
+/aws
+awscliv2.zip
+.venv
+.vscode
+app.log*
+media_output*
+test.json
+.DS_Store
+
+certs/apple_root_certs/
+
+# firefox-crosspost-profile/*
+# !firefox-crosspost-profile/prefs.js
+# !firefox-crosspost-profile/user.js
+# !firefox-crosspost-profile/extensions/
+# !firefox-crosspost-profile/extensions.json
+# !firefox-crosspost-profile/extension-settings.json
+# !firefox-crosspost-profile/extension-preferences.json
+# !firefox-crosspost-profile/addonStartup.json.lz4
+
+# firefox-crosspost-profile/storage/*
+# !firefox-crosspost-profile/storage/
+
+# firefox-crosspost-profile/storage/default/*
+# !firefox-crosspost-profile/storage/default
+# !firefox-crosspost-profile/storage/default/moz-extension+++37bb82ec-3d8c-4d18-8ad7-547de03a37b8
+</file>
+
+<file path="alembic.ini">
+# A generic, single database configuration.
+
+[alembic]
+# path to migration scripts
+script_location = migrations
+
+# template used to generate migration file names; The default value is %%(rev)s_%%(slug)s
+# Uncomment the line below if you want the files to be prepended with date and time
+# file_template = %%(year)d_%%(month).2d_%%(day).2d_%%(hour).2d%%(minute).2d-%%(rev)s_%%(slug)s
+
+# sys.path path, will be prepended to sys.path if present.
+# defaults to the current working directory.
+prepend_sys_path = .
+
+# timezone to use when rendering the date within the migration file
+# as well as the filename.
+# If specified, requires the python-dateutil library that can be
+# installed by adding `alembic[tz]` to the pip requirements
+# string value is passed to dateutil.tz.gettz()
+# leave blank for localtime
+# timezone =
+
+# max length of characters to apply to the
+# "slug" field
+# truncate_slug_length = 40
+
+# set to 'true' to run the environment during
+# the 'revision' command, regardless of autogenerate
+# revision_environment = false
+
+# set to 'true' to allow .pyc and .pyo files without
+# a source .py file to be detected as revisions in the
+# versions/ directory
+# sourceless = false
+
+# version location specification; This defaults
+# to migrations/versions.  When using multiple version
+# directories, initial revisions must be specified with --version-path.
+# The path separator used here should be the separator specified by "version_path_separator" below.
+# version_locations = %(here)s/bar:%(here)s/bat:migrations/versions
+
+# version path separator; As mentioned above, this is the character used to split
+# version_locations. The default within new alembic.ini files is "os", which uses os.pathsep.
+# If this key is omitted entirely, it falls back to the legacy behavior of splitting on spaces and/or commas.
+# Valid values for version_path_separator are:
+#
+# version_path_separator = :
+# version_path_separator = ;
+# version_path_separator = space
+version_path_separator = os  # Use os.pathsep. Default configuration used for new projects.
+
+# set to 'true' to search source files recursively
+# in each "version_locations" directory
+# new in Alembic version 1.10
+# recursive_version_locations = false
+
+# the output encoding used when revision files
+# are written from script.py.mako
+# output_encoding = utf-8
+
+#sqlalchemy.url = driver://user:pass@localhost/dbname
+
+
+[post_write_hooks]
+# post_write_hooks defines scripts or Python functions that are run
+# on newly generated revision scripts.  See the documentation for further
+# detail and examples
+
+# format using "black" - use the console_scripts runner, against the "black" entrypoint
+# hooks = black
+# black.type = console_scripts
+# black.entrypoint = black
+# black.options = -l 79 REVISION_SCRIPT_FILENAME
+
+# Logging configuration
+[loggers]
+keys = root,sqlalchemy,alembic
+
+[handlers]
+keys = console
+
+[formatters]
+keys = generic
+
+[logger_root]
+level = WARN
+handlers = console
+qualname =
+
+[logger_sqlalchemy]
+level = WARN
+handlers =
+qualname = sqlalchemy.engine
+
+[logger_alembic]
+level = INFO
+handlers =
+qualname = alembic
+
+[handler_console]
+class = StreamHandler
+args = (sys.stderr,)
+level = NOTSET
+formatter = generic
+
+[formatter_generic]
+format = %(levelname)-5.5s [%(name)s] %(message)s
+datefmt = %H:%M:%S
+</file>
+
+<file path="compose.yaml">
+services:
+    #######################################################
+    db:
+        image: postgres:15
+        ports:
+            - 5432:5432
+
+        volumes:
+            - postgres_data:/var/lib/postgresql/data/
+
+        environment:
+            - POSTGRES_DB=local
+            - POSTGRES_PASSWORD=TestPassowrd
+            - POSTGRES_USER=TestUser
+
+
+    #######################################################
+    web:
+        build:
+            context: .
+            target: app
+        image: crosspost-app:latest
+
+        env_file: .env
+
+        ports:
+            - 8000:8000
+
+        volumes:
+            - .:/code
+
+        depends_on:
+            - db
+    
+
+volumes:
+    postgres_data:
+</file>
+
+<file path="Dockerfile">
+# FROM python:3.13.1-slim-bookworm AS base --- THIS PULLS FROM DOCKER HUB WHICH IS RATE LIMITED
+FROM public.ecr.aws/docker/library/python:3.13.1-slim-bookworm AS base
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+RUN apt-get update && apt-get install -y curl unzip software-properties-common git        
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# =================================================================
+# STAGE 2: BUILDER
+# =================================================================
+FROM base AS builder
+WORKDIR /install
+
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel
+RUN pip install --no-cache-dir --default-timeout=100 pipenv
+COPY Pipfile Pipfile.lock ./
+RUN pipenv install --system --verbose
+
+
+# =================================================================
+# STAGE 3: APP
+# =================================================================
+FROM builder AS app
+WORKDIR /code
+COPY . /code/
+CMD [ "python", "-m", "app.main" ]
+</file>
+
+<file path="Pipfile">
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+uvicorn = "==0.40.0"
+uvicorn-worker = "==0.4.0"
+fastapi = "==0.128.0"
+sse-starlette = "==3.2.0"
+sqlalchemy = "==2.0.46"
+asyncpg = "==0.31.0"
+pydantic = "==2.12.5"
+alembic = "==1.18.3"
+alembic-postgresql-enum = "==1.8.0"
+joserfc = "*"
+argon2-cffi = "*"
+authlib = "*"
+jinja2 = "*"
+httpx = "*"
+python-multipart = "*"
+fastapi-mail = "*"
+cffi = "*"
+cmake = "*"
+pyjwt = "*"
+bcrypt = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.13.1"
+</file>
+
+</files>
