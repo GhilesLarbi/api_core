@@ -1,0 +1,27 @@
+{
+  "title": "Publications",
+  "tabs": {
+    "all": "Toutes",
+    "saved": "Enregistrées"
+  },
+  "newPost": "Nouvelle publication",
+  "save": "Enregistrer la publication",
+  "empty": {
+    "title": "Aucune publication pour le moment",
+    "description": "Soyez le premier à publier."
+  },
+  "emptySaved": {
+    "title": "Aucune publication enregistrée",
+    "description": "Les publications que vous enregistrez apparaîtront ici."
+  },
+  "form": {
+    "title": "Nouvelle publication",
+    "close": "Fermer",
+    "titleLabel": "Titre",
+    "titleRequired": "Saisissez un titre d'au moins 2 caractères.",
+    "contentLabel": "Contenu",
+    "contentRequired": "Écrivez quelque chose avant de publier.",
+    "addMedia": "Ajouter une photo ou une vidéo",
+    "submit": "Publier"
+  }
+}

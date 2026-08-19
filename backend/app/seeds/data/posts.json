@@ -1,0 +1,52 @@
+[
+  {
+    "author_email": "testuser@example.com",
+    "title": "Welcome to the community",
+    "content": "This is the first post on the platform. Say hello, browse what others have shared and save the posts you want to come back to."
+  },
+  {
+    "author_email": "liam.wilson@example.com",
+    "title": "Getting started with your account",
+    "content": "Set a profile picture, confirm your email address and review your connected devices from the settings area. It takes less than five minutes."
+  },
+  {
+    "author_email": "olivia.moore@example.com",
+    "title": "Five tips for writing a good post",
+    "content": "Keep the title short, open with the point, use one idea per paragraph, read it once out loud and cut everything the reader does not need."
+  },
+  {
+    "author_email": "noah.taylor@example.com",
+    "title": "What I learned this week",
+    "content": "Small consistent steps beat occasional big pushes. I shipped one small improvement every day and by Friday the difference was obvious."
+  },
+  {
+    "author_email": "ava.anderson@example.com",
+    "title": "A short note on staying organized",
+    "content": "One list, reviewed every morning. Everything else is a place things go to be forgotten. It sounds too simple, and that is exactly why it works."
+  },
+  {
+    "author_email": "ethan.thomas@example.com",
+    "title": "My favorite productivity habits",
+    "content": "Start the day with the hardest task, batch the small ones after lunch and end by writing tomorrow's first step before closing the laptop."
+  },
+  {
+    "author_email": "mia.jackson@example.com",
+    "title": "Thoughts on remote work",
+    "content": "The commute you save is only a win if you protect it. Guard your mornings, over-communicate decisions and log off at a fixed time."
+  },
+  {
+    "author_email": "lucas.white@example.com",
+    "title": "A beginner's guide to saving posts",
+    "content": "Tap the bookmark on any post to keep it. Your saved posts follow you when you sign in, so nothing you marked as a visitor is lost."
+  },
+  {
+    "author_email": "sophia.harris@example.com",
+    "title": "Why I write every day",
+    "content": "Writing is how I find out what I actually think. Most drafts go nowhere, and the ones that survive are clearer than anything I could improvise."
+  },
+  {
+    "author_email": "mason.martin@example.com",
+    "title": "Looking back at my first month here",
+    "content": "Thirty days, twelve posts and a lot of saved reading. The best part has been the replies that pointed me at things I would never have found alone."
+  }
+]

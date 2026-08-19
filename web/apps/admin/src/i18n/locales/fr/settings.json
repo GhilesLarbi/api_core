@@ -1,0 +1,83 @@
+{
+  "title": "Paramètres",
+  "nav": {
+    "groups": {
+      "account": "Gérer mon compte",
+      "app": "Application",
+      "personalization": "Personnalisation",
+      "more": "Plus d'infos et assistance"
+    },
+    "profile": "Profil",
+    "security": "Mot de passe et sécurité",
+    "appConfig": "Configuration de l'application",
+    "appearance": "Apparence",
+    "language": "Langue",
+    "legal": "Conditions et confidentialité"
+  },
+  "profile": {
+    "title": "Profil",
+    "description": "Mettez à jour le nom et le numéro de téléphone de votre compte administrateur.",
+    "firstNameLabel": "Prénom",
+    "firstNameRequired": "Entrez votre prénom.",
+    "lastNameLabel": "Nom",
+    "lastNameRequired": "Entrez votre nom.",
+    "phoneLabel": "Téléphone",
+    "phoneInvalid": "Entrez un numéro de téléphone valide.",
+    "submit": "Enregistrer",
+    "photoLabel": "Photo de profil",
+    "emailLabel": "E-mail",
+    "emailInvalid": "Entrez une adresse e-mail valide."
+  },
+  "security": {
+    "title": "Mot de passe et sécurité",
+    "description": "Changez votre mot de passe et vérifiez où vous êtes connecté.",
+    "changePassword": "Changer le mot de passe",
+    "oldPasswordLabel": "Mot de passe actuel",
+    "oldPasswordRequired": "Entrez votre mot de passe actuel.",
+    "newPasswordLabel": "Nouveau mot de passe",
+    "passwordMinLength": "Le mot de passe doit contenir au moins 8 caractères.",
+    "passwordLowercase": "Le mot de passe doit contenir une lettre minuscule.",
+    "passwordUppercase": "Le mot de passe doit contenir une lettre majuscule.",
+    "passwordNumber": "Le mot de passe doit contenir un chiffre.",
+    "passwordSpecialChar": "Le mot de passe doit contenir un caractère spécial.",
+    "confirmPasswordLabel": "Confirmer le nouveau mot de passe",
+    "passwordMismatch": "Les mots de passe ne correspondent pas.",
+    "connectedDevices": "Appareils connectés",
+    "disconnectAll": "Déconnecter tous les appareils",
+    "disconnectAllDesc": "Vous serez déconnecté de tous les appareils, y compris celui-ci.",
+    "disconnectDevice": "Déconnecter l'appareil",
+    "disconnectDeviceDesc": "Cet appareil sera déconnecté et devra se reconnecter.",
+    "disconnect": "Déconnecter",
+    "unknownDevice": "Appareil inconnu",
+    "noDevices": "Aucune session active.",
+    "devicesFailed": "Impossible de charger vos appareils."
+  },
+  "appConfig": {
+    "title": "Configuration de l'application",
+    "description": "Contrôlez le mode maintenance et le contact d'assistance de l'application.",
+    "loadFailed": "Impossible de charger la configuration de l'application.",
+    "maintenanceLabel": "Mode maintenance",
+    "maintenanceDescription": "Lorsqu'il est activé, l'application indique aux utilisateurs qu'elle est temporairement indisponible.",
+    "supportEmailLabel": "E-mail d'assistance",
+    "supportEmailInvalid": "Entrez une adresse e-mail valide.",
+    "submit": "Enregistrer"
+  },
+  "appearance": {
+    "title": "Apparence",
+    "description": "Personnalisez l'apparence du tableau de bord.",
+    "fontLabel": "Police",
+    "fontDescription": "Définissez la police à utiliser dans le tableau de bord.",
+    "themeLabel": "Thème"
+  },
+  "language": {
+    "title": "Langue",
+    "description": "Choisissez la langue du tableau de bord."
+  },
+  "legal": {
+    "title": "Conditions et confidentialité",
+    "description": "Consultez les conditions qui régissent votre utilisation de SaaS Template.",
+    "terms": "Conditions d'utilisation",
+    "privacy": "Politique de confidentialité",
+    "copyright": "© {{year}} SaaS Template. Tous droits réservés."
+  }
+}

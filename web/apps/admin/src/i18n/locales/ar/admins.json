@@ -1,0 +1,67 @@
+{
+  "title": "المشرفون",
+  "actions": {
+    "addAdmin": "إضافة مشرف",
+    "permissions": "الصلاحيات",
+    "changePassword": "تغيير كلمة المرور"
+  },
+  "columns": {
+    "name": "المشرف",
+    "email": "البريد الإلكتروني",
+    "permissions": "الصلاحيات",
+    "createdAt": "تاريخ الإنشاء"
+  },
+  "permissions": {
+    "none": "لا توجد صلاحيات",
+    "count_zero": "{{count}} صلاحية",
+    "count_one": "صلاحية واحدة",
+    "count_two": "صلاحيتان",
+    "count_few": "{{count}} صلاحيات",
+    "count_many": "{{count}} صلاحية",
+    "count_other": "{{count}} صلاحية"
+  },
+  "toolbar": {
+    "searchPlaceholder": "بحث..."
+  },
+  "table": {
+    "emptyTitle": "لم يتم العثور على مشرفين",
+    "emptySubtitle": "عدّل بحثك أو أضف حساب مشرف."
+  },
+  "passwordDialog": {
+    "title": "تغيير كلمة المرور",
+    "newPassword": "كلمة المرور الجديدة",
+    "confirmPassword": "تأكيد كلمة المرور"
+  },
+  "permissionsDialog": {
+    "title": "الصلاحيات",
+    "selfWarning": "هذا حسابك أنت. إزالة صلاحية هنا تسحبها منك فورًا.",
+    "loadFailed": "تعذر تحميل قائمة الصلاحيات."
+  },
+  "deleteDialog": {
+    "title": "حذف المشرف",
+    "description": "سيفقد {{name}} الوصول فورًا وستُنهى كل جلساته المفتوحة. لا يمكن التراجع عن هذا."
+  },
+  "validation": {
+    "emailInvalid": "يرجى إدخال بريد إلكتروني صالح",
+    "nameTooShort": "يرجى إدخال حرفين على الأقل",
+    "phoneInvalid": "يرجى إدخال رقم هاتف صالح",
+    "passwordWeak": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل وتتضمن حرفًا كبيرًا وحرفًا صغيرًا ورقمًا ورمزًا خاصًا",
+    "passwordMismatch": "كلمتا المرور غير متطابقتين"
+  },
+  "fields": {
+    "firstName": "الاسم",
+    "lastName": "اللقب",
+    "email": "البريد الإلكتروني",
+    "phone": "الهاتف",
+    "password": "كلمة المرور",
+    "avatar": "الصورة"
+  },
+  "panel": {
+    "createTitle": "مشرف جديد",
+    "emptyTitle": "لم يتم اختيار مشرف",
+    "emptyBody": "اختر مشرفا من الجدول لعرض حسابه هنا.",
+    "profile": "الملف الشخصي",
+    "account": "الحساب",
+    "permissions": "الصلاحيات"
+  }
+}

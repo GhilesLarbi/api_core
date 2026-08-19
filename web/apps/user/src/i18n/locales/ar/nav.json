@@ -1,0 +1,16 @@
+{
+  "brand": {
+    "name": "SaaS Template",
+    "tagline": "ابدأ منتجك القادم من هنا"
+  },
+  "account": {
+    "signIn": "تسجيل الدخول",
+    "signOut": "تسجيل الخروج",
+    "menu": "حسابك",
+    "settings": "الحساب"
+  },
+  "items": {
+    "home": "الرئيسية",
+    "posts": "المنشورات"
+  }
+}

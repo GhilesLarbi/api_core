@@ -1,0 +1,46 @@
+{
+  "title": "Users",
+  "actions": {
+    "addUser": "Add user"
+  },
+  "columns": {
+    "name": "User",
+    "email": "Email",
+    "verified": "Email status",
+    "createdAt": "Created"
+  },
+  "status": {
+    "verified": "Verified",
+    "unverified": "Unverified"
+  },
+  "toolbar": {
+    "searchPlaceholder": "Search..."
+  },
+  "table": {
+    "emptyTitle": "No users found",
+    "emptySubtitle": "Adjust your search, or add a user account."
+  },
+  "deleteDialog": {
+    "title": "Delete user",
+    "description": "{{name}} will lose access immediately and every session they have open will be signed out. This cannot be undone."
+  },
+  "validation": {
+    "emailInvalid": "Please enter a valid email address",
+    "nameTooShort": "Please enter at least 2 characters",
+    "passwordWeak": "Password must be at least 8 characters and include an uppercase letter, a lowercase letter, a digit and a special character"
+  },
+  "fields": {
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "password": "Password",
+    "avatar": "Picture"
+  },
+  "panel": {
+    "createTitle": "New user",
+    "emptyTitle": "No user selected",
+    "emptyBody": "Pick a user from the table to see their account here.",
+    "profile": "Profile",
+    "account": "Account"
+  }
+}

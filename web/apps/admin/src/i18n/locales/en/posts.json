@@ -1,0 +1,46 @@
+{
+  "title": "Posts",
+  "columns": {
+    "title": "Post",
+    "author": "Author",
+    "media": "Media",
+    "visibility": "Visibility",
+    "createdAt": "Created"
+  },
+  "visibility": {
+    "visible": "Visible",
+    "hidden": "Hidden"
+  },
+  "toolbar": {
+    "searchPlaceholder": "Search...",
+    "visibility": {
+      "all": "All posts",
+      "visible": "Visible",
+      "hidden": "Hidden"
+    }
+  },
+  "table": {
+    "emptyTitle": "No posts found",
+    "emptySubtitle": "Adjust your search or filters."
+  },
+  "deleteDialog": {
+    "title": "Delete post",
+    "description": "\"{{title}}\" will be removed for everyone, including its author. This cannot be undone."
+  },
+  "validation": {
+    "titleTooShort": "Please enter at least 2 characters",
+    "contentRequired": "Please enter some content"
+  },
+  "fields": {
+    "title": "Title",
+    "content": "Content",
+    "hiddenLabel": "Hidden"
+  },
+  "panel": {
+    "emptyTitle": "No post selected",
+    "emptyBody": "Pick a post from the table to see it here.",
+    "details": "Details",
+    "media": "Media",
+    "visibility": "Visibility"
+  }
+}

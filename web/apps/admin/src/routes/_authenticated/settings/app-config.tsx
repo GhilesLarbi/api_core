@@ -1,0 +1,10 @@
+import { createFileRoute } from '@tanstack/react-router'
+
+import { SettingsAppConfig } from '@/features/settings/app-config'
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+export const Route = createFileRoute('/_authenticated/settings/app-config')({
+  staticData: { permission: 'app_config.read' },
+  component: SettingsAppConfig,
+})

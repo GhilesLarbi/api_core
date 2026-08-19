@@ -1,0 +1,9 @@
+{
+  "brand": "SaaS Template",
+  "links": {
+    "posts": "Posts",
+    "terms": "Terms of service",
+    "privacy": "Privacy policy"
+  },
+  "copyright": "© {{year}} SaaS Template. All rights reserved."
+}

@@ -1,0 +1,124 @@
+{
+  "language": {
+    "label": "اللغة"
+  },
+  "theme": {
+    "toggle": "تبديل المظهر",
+    "light": "فاتح",
+    "dark": "داكن",
+    "system": "النظام"
+  },
+  "commandMenu": {
+    "placeholder": "اكتب أمرًا أو ابحث...",
+    "navigationHeading": "التنقل",
+    "themeHeading": "المظهر",
+    "languageHeading": "اللغة"
+  },
+  "actions": {
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "create": "إنشاء",
+    "close": "إغلاق",
+    "confirm": "تأكيد",
+    "back": "رجوع",
+    "next": "التالي",
+    "continue": "متابعة",
+    "search": "بحث",
+    "clearFilters": "مسح عوامل التصفية",
+    "viewDetails": "عرض التفاصيل",
+    "signOut": "تسجيل الخروج",
+    "reset": "إعادة التعيين",
+    "openMenu": "فتح القائمة",
+    "done": "تم",
+    "clear": "مسح"
+  },
+  "signOutDialog": {
+    "title": "تسجيل الخروج",
+    "description": "هل أنت متأكد أنك تريد تسجيل الخروج؟ ستحتاج إلى تسجيل الدخول مرة أخرى للوصول إلى لوحة التحكم."
+  },
+  "status": {
+    "loading": "جارٍ التحميل...",
+    "noResults": "لم يتم العثور على نتائج.",
+    "somethingWentWrong": "حدث خطأ ما.",
+    "comingSoon": "قريبًا."
+  },
+  "errors": {
+    "title": "حدث خطأ ما"
+  },
+  "table": {
+    "rowsPerPage": "عدد الصفوف في الصفحة",
+    "pageOf": "الصفحة {{current}} من {{total}}",
+    "rowsSelected_one": "تم تحديد {{count}} من {{total}} صف.",
+    "rowsSelected_other": "تم تحديد {{count}} من {{total}} صفوف.",
+    "filterPlaceholder": "تصفية...",
+    "toggleColumns": "إظهار/إخفاء الأعمدة",
+    "sortAsc": "تصاعدي",
+    "sortDesc": "تنازلي",
+    "hideColumn": "إخفاء",
+    "goToFirstPage": "الانتقال إلى الصفحة الأولى",
+    "goToPreviousPage": "الانتقال إلى الصفحة السابقة",
+    "goToNextPage": "الانتقال إلى الصفحة التالية",
+    "goToLastPage": "الانتقال إلى الصفحة الأخيرة",
+    "goToPage": "الانتقال إلى الصفحة {{page}}"
+  },
+  "upload": {
+    "chooseImage": "اختر صورة",
+    "chooseDifferentImage": "اختر صورة أخرى",
+    "dropHint": "اسحب وأفلت صورة هنا، أو انقر للرفع",
+    "dropSubhint": "PNG أو JPG أو WEBP حتى {{size}} ميغابايت",
+    "uploadImage": "ارفع صورة",
+    "uploading": "جارٍ الرفع...",
+    "fileTooLarge": "الملف كبير جدًا.",
+    "invalidFileType": "نوع الملف غير مدعوم.",
+    "failed": "فشل الرفع. يرجى المحاولة مرة أخرى.",
+    "viewDocument": "عرض المستند",
+    "noDocument": "لم يتم رفع أي مستند",
+    "chooseDocument": "اختر ملفًا",
+    "replaceDocument": "استبدال",
+    "addDocument": "إضافة مستند",
+    "removeDocument": "حذف المستند",
+    "documentIndex": "مستند {{index}}",
+    "kinds": {
+      "photo": "صورة",
+      "video": "فيديو",
+      "voiceNote": "رسالة صوتية",
+      "recording": "تسجيل",
+      "file": "ملف"
+    },
+    "numbered": "{{name}} {{number}}"
+  },
+  "selection": {
+    "count_one": "تم تحديد {{count}}",
+    "count_other": "تم تحديد {{count}}",
+    "clear": "إلغاء التحديد",
+    "clearHint": "إلغاء التحديد (Escape)",
+    "announcement_one": "تم تحديد {{count}} {{entity}}. شريط الإجراءات الجماعية متاح.",
+    "announcement_other": "تم تحديد {{count}} {{entity}}. شريط الإجراءات الجماعية متاح.",
+    "toolbarAriaLabel_one": "إجراءات جماعية لـ {{count}} {{entity}} محدد",
+    "toolbarAriaLabel_other": "إجراءات جماعية لـ {{count}} {{entity}} محدد",
+    "label_one": "{{entity}} محدد",
+    "label_other": "{{entity}} محدد"
+  },
+  "fontSize": {
+    "label": "حجم الخط",
+    "description": "يغيّر حجم الواجهة بالكامل، وليس النص فقط.",
+    "small": "صغير",
+    "default": "افتراضي",
+    "large": "كبير",
+    "larger": "أكبر"
+  },
+  "capture": {
+    "photoTitle": "التقاط صورة",
+    "videoTitle": "تسجيل فيديو",
+    "audioTitle": "تسجيل ملاحظة صوتية",
+    "record": "تسجيل",
+    "stop": "إيقاف",
+    "take": "التقاط",
+    "use": "استخدام",
+    "retake": "إعادة",
+    "denied": "يلزم إذن الكاميرا والميكروفون للتسجيل. اسمح بذلك في إعدادات المتصفح ثم أعد المحاولة.",
+    "unsupported": "هذا الجهاز لا يستطيع التسجيل هنا. أرفق ملفا بدلا من ذلك."
+  }
+}

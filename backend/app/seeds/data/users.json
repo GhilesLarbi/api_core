@@ -1,0 +1,62 @@
+[
+  {
+    "email": "testuser@example.com",
+    "first_name": "Test",
+    "last_name": "User",
+    "password": "Falcon7-Meadow6-Cobweb9-Maple7"
+  },
+  {
+    "email": "liam.wilson@example.com",
+    "first_name": "Liam",
+    "last_name": "Wilson",
+    "password": "Falcon7-Meadow6-Cobweb9-Maple7"
+  },
+  {
+    "email": "olivia.moore@example.com",
+    "first_name": "Olivia",
+    "last_name": "Moore",
+    "password": "Falcon7-Meadow6-Cobweb9-Maple7"
+  },
+  {
+    "email": "noah.taylor@example.com",
+    "first_name": "Noah",
+    "last_name": "Taylor",
+    "password": "Falcon7-Meadow6-Cobweb9-Maple7"
+  },
+  {
+    "email": "ava.anderson@example.com",
+    "first_name": "Ava",
+    "last_name": "Anderson",
+    "password": "Falcon7-Meadow6-Cobweb9-Maple7"
+  },
+  {
+    "email": "ethan.thomas@example.com",
+    "first_name": "Ethan",
+    "last_name": "Thomas",
+    "password": "Falcon7-Meadow6-Cobweb9-Maple7"
+  },
+  {
+    "email": "mia.jackson@example.com",
+    "first_name": "Mia",
+    "last_name": "Jackson",
+    "password": "Falcon7-Meadow6-Cobweb9-Maple7"
+  },
+  {
+    "email": "lucas.white@example.com",
+    "first_name": "Lucas",
+    "last_name": "White",
+    "password": "Falcon7-Meadow6-Cobweb9-Maple7"
+  },
+  {
+    "email": "sophia.harris@example.com",
+    "first_name": "Sophia",
+    "last_name": "Harris",
+    "password": "Falcon7-Meadow6-Cobweb9-Maple7"
+  },
+  {
+    "email": "mason.martin@example.com",
+    "first_name": "Mason",
+    "last_name": "Martin",
+    "password": "Falcon7-Meadow6-Cobweb9-Maple7"
+  }
+]

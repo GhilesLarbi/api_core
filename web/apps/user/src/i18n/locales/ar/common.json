@@ -1,0 +1,7 @@
+{
+  "loadMore": {
+    "progress": "{{loaded}} من {{total}} نتيجة",
+    "action": "عرض المزيد",
+    "backToTop": "العودة إلى الأعلى"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "brand": "SaaS Template",
+  "links": {
+    "posts": "المنشورات",
+    "terms": "شروط الاستخدام",
+    "privacy": "سياسة الخصوصية"
+  },
+  "copyright": "© {{year}} SaaS Template. جميع الحقوق محفوظة."
+}

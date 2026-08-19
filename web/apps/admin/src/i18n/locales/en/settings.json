@@ -1,0 +1,83 @@
+{
+  "title": "Settings",
+  "nav": {
+    "groups": {
+      "account": "Manage my account",
+      "app": "App",
+      "personalization": "Personalization",
+      "more": "More info and support"
+    },
+    "profile": "Profile",
+    "security": "Password and security",
+    "appConfig": "App configuration",
+    "appearance": "Appearance",
+    "language": "Language",
+    "legal": "Terms and privacy"
+  },
+  "profile": {
+    "title": "Profile",
+    "description": "Update the name and phone number on your admin account.",
+    "firstNameLabel": "First name",
+    "firstNameRequired": "Enter your first name.",
+    "lastNameLabel": "Last name",
+    "lastNameRequired": "Enter your last name.",
+    "phoneLabel": "Phone",
+    "phoneInvalid": "Enter a valid phone number.",
+    "submit": "Save changes",
+    "photoLabel": "Profile photo",
+    "emailLabel": "Email",
+    "emailInvalid": "Enter a valid email address."
+  },
+  "security": {
+    "title": "Password and security",
+    "description": "Change your password and review where you are signed in.",
+    "changePassword": "Change password",
+    "oldPasswordLabel": "Current password",
+    "oldPasswordRequired": "Enter your current password.",
+    "newPasswordLabel": "New password",
+    "passwordMinLength": "Password must be at least 8 characters.",
+    "passwordLowercase": "Password must contain a lowercase letter.",
+    "passwordUppercase": "Password must contain an uppercase letter.",
+    "passwordNumber": "Password must contain a number.",
+    "passwordSpecialChar": "Password must contain a special character.",
+    "confirmPasswordLabel": "Confirm new password",
+    "passwordMismatch": "Passwords do not match.",
+    "connectedDevices": "Connected devices",
+    "disconnectAll": "Disconnect all devices",
+    "disconnectAllDesc": "This signs you out on every device, including this one.",
+    "disconnectDevice": "Disconnect device",
+    "disconnectDeviceDesc": "This device will be signed out and will need to sign in again.",
+    "disconnect": "Disconnect",
+    "unknownDevice": "Unknown device",
+    "noDevices": "No active sessions.",
+    "devicesFailed": "Couldn't load your devices."
+  },
+  "appConfig": {
+    "title": "App configuration",
+    "description": "Control maintenance mode and the support contact of the app.",
+    "loadFailed": "Couldn't load the app configuration.",
+    "maintenanceLabel": "Maintenance mode",
+    "maintenanceDescription": "While on, the app tells users it is temporarily unavailable.",
+    "supportEmailLabel": "Support email",
+    "supportEmailInvalid": "Enter a valid email address.",
+    "submit": "Save changes"
+  },
+  "appearance": {
+    "title": "Appearance",
+    "description": "Customize the look of the dashboard.",
+    "fontLabel": "Font",
+    "fontDescription": "Set the font you want to use in the dashboard.",
+    "themeLabel": "Theme"
+  },
+  "language": {
+    "title": "Language",
+    "description": "Choose the language of the dashboard."
+  },
+  "legal": {
+    "title": "Terms and privacy",
+    "description": "Review the terms that govern your use of SaaS Template.",
+    "terms": "Terms of service",
+    "privacy": "Privacy policy",
+    "copyright": "© {{year}} SaaS Template. All rights reserved."
+  }
+}

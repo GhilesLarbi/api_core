@@ -1,0 +1,16 @@
+{
+  "brand": {
+    "name": "SaaS Template",
+    "tagline": "Lancez votre prochain produit ici"
+  },
+  "account": {
+    "signIn": "Se connecter",
+    "signOut": "Se déconnecter",
+    "menu": "Votre compte",
+    "settings": "Compte"
+  },
+  "items": {
+    "home": "Accueil",
+    "posts": "Publications"
+  }
+}

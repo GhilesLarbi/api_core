@@ -1,0 +1,83 @@
+{
+  "title": "الإعدادات",
+  "nav": {
+    "groups": {
+      "account": "إدارة حسابي",
+      "app": "التطبيق",
+      "personalization": "التخصيص",
+      "more": "مزيد من المعلومات والدعم"
+    },
+    "profile": "الملف الشخصي",
+    "security": "كلمة المرور والأمان",
+    "appConfig": "إعدادات التطبيق",
+    "appearance": "المظهر",
+    "language": "اللغة",
+    "legal": "الشروط والخصوصية"
+  },
+  "profile": {
+    "title": "الملف الشخصي",
+    "description": "حدّث الاسم ورقم الهاتف في حساب المشرف الخاص بك.",
+    "firstNameLabel": "الاسم",
+    "firstNameRequired": "أدخل اسمك.",
+    "lastNameLabel": "اللقب",
+    "lastNameRequired": "أدخل لقبك.",
+    "phoneLabel": "الهاتف",
+    "phoneInvalid": "أدخل رقم هاتف صالحًا.",
+    "submit": "حفظ التغييرات",
+    "photoLabel": "صورة الملف الشخصي",
+    "emailLabel": "البريد الإلكتروني",
+    "emailInvalid": "أدخل عنوان بريد إلكتروني صالحًا."
+  },
+  "security": {
+    "title": "كلمة المرور والأمان",
+    "description": "غيّر كلمة المرور وراجع الأجهزة المتصلة بحسابك.",
+    "changePassword": "تغيير كلمة المرور",
+    "oldPasswordLabel": "كلمة المرور الحالية",
+    "oldPasswordRequired": "أدخل كلمة المرور الحالية.",
+    "newPasswordLabel": "كلمة المرور الجديدة",
+    "passwordMinLength": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل.",
+    "passwordLowercase": "يجب أن تحتوي كلمة المرور على حرف صغير.",
+    "passwordUppercase": "يجب أن تحتوي كلمة المرور على حرف كبير.",
+    "passwordNumber": "يجب أن تحتوي كلمة المرور على رقم.",
+    "passwordSpecialChar": "يجب أن تحتوي كلمة المرور على رمز خاص.",
+    "confirmPasswordLabel": "تأكيد كلمة المرور الجديدة",
+    "passwordMismatch": "كلمتا المرور غير متطابقتين.",
+    "connectedDevices": "الأجهزة المتصلة",
+    "disconnectAll": "قطع الاتصال بكل الأجهزة",
+    "disconnectAllDesc": "سيتم تسجيل خروجك من جميع الأجهزة، بما في ذلك هذا الجهاز.",
+    "disconnectDevice": "قطع اتصال الجهاز",
+    "disconnectDeviceDesc": "سيتم تسجيل خروج هذا الجهاز وسيحتاج إلى تسجيل الدخول مرة أخرى.",
+    "disconnect": "قطع الاتصال",
+    "unknownDevice": "جهاز غير معروف",
+    "noDevices": "لا توجد جلسات نشطة.",
+    "devicesFailed": "تعذّر تحميل أجهزتك."
+  },
+  "appConfig": {
+    "title": "إعدادات التطبيق",
+    "description": "تحكّم في وضع الصيانة وبريد الدعم الخاص بالتطبيق.",
+    "loadFailed": "تعذّر تحميل إعدادات التطبيق.",
+    "maintenanceLabel": "وضع الصيانة",
+    "maintenanceDescription": "عند تفعيله، يخبر التطبيق المستخدمين بأنه غير متاح مؤقتًا.",
+    "supportEmailLabel": "بريد الدعم",
+    "supportEmailInvalid": "أدخل عنوان بريد إلكتروني صالحًا.",
+    "submit": "حفظ التغييرات"
+  },
+  "appearance": {
+    "title": "المظهر",
+    "description": "خصّص مظهر لوحة التحكم.",
+    "fontLabel": "الخط",
+    "fontDescription": "حدد الخط الذي تريد استخدامه في لوحة التحكم.",
+    "themeLabel": "السمة"
+  },
+  "language": {
+    "title": "اللغة",
+    "description": "اختر لغة لوحة التحكم."
+  },
+  "legal": {
+    "title": "الشروط والخصوصية",
+    "description": "اطّلع على الشروط التي تحكم استخدامك لـ SaaS Template.",
+    "terms": "شروط الخدمة",
+    "privacy": "سياسة الخصوصية",
+    "copyright": "© {{year}} SaaS Template. جميع الحقوق محفوظة."
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "filters": {
+    "day": "Jour",
+    "week": "Semaine",
+    "month": "Mois",
+    "presets": {
+      "today": "Aujourd'hui",
+      "yesterday": "Hier",
+      "last_7_days": "7 derniers jours",
+      "last_14_days": "14 derniers jours",
+      "last_30_days": "30 derniers jours",
+      "last_60_days": "60 derniers jours",
+      "last_90_days": "3 derniers mois",
+      "last_180_days": "6 derniers mois",
+      "last_365_days": "12 derniers mois",
+      "this_month": "Ce mois-ci",
+      "last_month": "Le mois dernier",
+      "all_time": "Tout le temps"
+    }
+  },
+  "finances": {
+    "previous": "Précédent",
+    "revenue": {
+      "title": "Revenus",
+      "sub": "aujourd'hui {{amount}} · brut"
+    },
+    "mrr": {
+      "title": "MRR total",
+      "sub": "abonnés payants · {{amount}} en pipeline d'essai"
+    },
+    "keyMetrics": {
+      "title": "Indicateurs clés",
+      "ltvPerUser": "LTV / utilisateur",
+      "avgRevenuePerUser": "Revenu moyen / utilisateur",
+      "paidRetention": "Rétention payante",
+      "cancellations": "Résiliations",
+      "totalPaidUsers": "Total utilisateurs payants",
+      "freeUsers": "Utilisateurs gratuits",
+      "activeTrials": "Essais actifs"
+    },
+    "monthlyNet": {
+      "title": "Net mensuel",
+      "revenue": "Revenus (Lemon Squeezy + Apple)",
+      "awsCosts": "Coûts AWS",
+      "mercuryCosts": "Coûts Mercury Bank",
+      "creatorPayouts": "Versements aux créateurs",
+      "remaining": "Restant",
+      "upcomingPayouts": "Versements à venir (mois prochain)",
+      "disclaimer": "Les coûts AWS et les versements aux créateurs apparaissent aussi dans Mercury — évitez tout double comptage avec le relevé bancaire. Vérifiez les chiffres Apple dans App Store Connect (unités / recettes)."
+    }
+  },
+  "generalErrors": {
+    "title": "Erreurs générales",
+    "chartLabel": "Erreurs",
+    "totalErrors": "Total des erreurs",
+    "backend": "Back-end",
+    "frontend": "Front-end",
+    "appCrashes": "Plantages de l'application"
+  },
+  "avgTime": {
+    "title": "Temps moyen sur la plateforme",
+    "free": "Gratuit",
+    "paid": "Payant",
+    "perDay": "Par jour",
+    "perWeek": "Par semaine",
+    "perMonth": "Par mois"
+  },
+  "loadTimes": {
+    "title": "Temps de chargement de l'application",
+    "openToHomePainted": "ouverture → accueil affiché",
+    "iosApp": "Application iOS",
+    "webApp": "Application Web",
+    "average": "moyenne",
+    "shortest": "Le plus court",
+    "longest": "Le plus long"
+  },
+  "retention": {
+    "title": "Rétention et attrition",
+    "explainer": "Chaque ligne de cohorte représente les utilisateurs inscrits ce mois-là ; chaque cellule indique le <0>% encore actif</0> N mois plus tard (<1>plus c'est vert, plus c'est fidèle</1>, M0 = 100 %).",
+    "overall": "Global",
+    "freeUsers": "Utilisateurs gratuits",
+    "paidUsers": "Utilisateurs payants",
+    "caption": "Rétention à 30 jours. Le global est la moyenne pondérée par population des utilisateurs gratuits et payants. Global à 7 jours : {{value}} %.",
+    "subscriberChurn": "Attrition des abonnés",
+    "churnChartLabel": "Attrition",
+    "churnCaption": "{{cancelled}} sur {{base}} payants résiliés · préc. {{previousRate}} %",
+    "pts": "pts",
+    "cohort": "Cohorte",
+    "users": "Utilisateurs"
+  },
+  "featureUsage": {
+    "title": "Utilisation des fonctionnalités",
+    "chartLabel": "Utilisations",
+    "usesCaption": "utilisations · 1 = ≥ 1 usage / fenêtre de {{min}} min",
+    "tooltipCaption": "{{uses}} utilisations · {{retention}} % de retour"
+  },
+  "onboarding": {
+    "title": "Complétion de l'onboarding",
+    "stepsCount": "{{count}} étapes",
+    "finishedCaption": "onboarding terminé · {{finish}} sur {{start}} ont démarré"
+  }
+}

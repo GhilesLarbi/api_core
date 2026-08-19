@@ -1,0 +1,63 @@
+{
+  "title": "Administrateurs",
+  "actions": {
+    "addAdmin": "Ajouter un administrateur",
+    "permissions": "Permissions",
+    "changePassword": "Changer le mot de passe"
+  },
+  "columns": {
+    "name": "Administrateur",
+    "email": "E-mail",
+    "permissions": "Permissions",
+    "createdAt": "Création"
+  },
+  "permissions": {
+    "none": "Aucune permission",
+    "count_one": "{{count}} permission",
+    "count_other": "{{count}} permissions"
+  },
+  "toolbar": {
+    "searchPlaceholder": "Rechercher..."
+  },
+  "table": {
+    "emptyTitle": "Aucun administrateur trouvé",
+    "emptySubtitle": "Modifiez votre recherche ou ajoutez un compte administrateur."
+  },
+  "passwordDialog": {
+    "title": "Changer le mot de passe",
+    "newPassword": "Nouveau mot de passe",
+    "confirmPassword": "Confirmer le mot de passe"
+  },
+  "permissionsDialog": {
+    "title": "Permissions",
+    "selfWarning": "Il s'agit de votre propre compte. Retirer une permission ici vous la retire immédiatement.",
+    "loadFailed": "La liste des permissions n'a pas pu être chargée."
+  },
+  "deleteDialog": {
+    "title": "Supprimer l'administrateur",
+    "description": "{{name}} perdra l'accès immédiatement et toutes ses sessions ouvertes seront fermées. Cette action est irréversible."
+  },
+  "validation": {
+    "emailInvalid": "Veuillez saisir une adresse e-mail valide",
+    "nameTooShort": "Veuillez saisir au moins 2 caractères",
+    "phoneInvalid": "Veuillez saisir un numéro de téléphone valide",
+    "passwordWeak": "Le mot de passe doit contenir au moins 8 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial",
+    "passwordMismatch": "Les deux mots de passe ne correspondent pas"
+  },
+  "fields": {
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "email": "E-mail",
+    "phone": "Téléphone",
+    "password": "Mot de passe",
+    "avatar": "Photo"
+  },
+  "panel": {
+    "createTitle": "Nouvel administrateur",
+    "emptyTitle": "Aucun administrateur selectionne",
+    "emptyBody": "Choisissez un administrateur dans le tableau pour voir son compte ici.",
+    "profile": "Profil",
+    "account": "Compte",
+    "permissions": "Permissions"
+  }
+}

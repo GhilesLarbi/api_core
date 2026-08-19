@@ -1,0 +1,12 @@
+{
+  "brand": {
+    "name": "Admin"
+  },
+  "items": {
+    "home": "Home",
+    "users": "Users",
+    "posts": "Posts",
+    "admins": "Admins",
+    "settings": "Settings"
+  }
+}

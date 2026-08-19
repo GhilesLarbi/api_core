@@ -1,0 +1,135 @@
+{
+  "terms": {
+    "title": "Terms of Service",
+    "intro": [
+      "These Terms of Service (\"Terms\") govern your use of the SaaS Template website, software and services (collectively, the \"Services\"). They are placeholder terms shipped with the template: replace them with your own terms before launching a real product.",
+      "By accessing or using the Services you agree to be bound by these Terms. If you do not agree to these Terms, please do not use the Services."
+    ],
+    "sections": [
+      {
+        "heading": "Your account",
+        "paragraphs": [
+          "You must provide accurate and complete information when creating an account and keep it up to date.",
+          "You are responsible for maintaining the confidentiality of your credentials and for all activity that occurs under your account. Notify us immediately at support@example.com if you suspect unauthorized use of your account."
+        ]
+      },
+      {
+        "heading": "Acceptable use",
+        "paragraphs": [
+          "You agree not to misuse the Services. In particular, you agree not to:"
+        ],
+        "items": [
+          {
+            "text": "use the Services for any unlawful purpose or in violation of these Terms."
+          },
+          {
+            "text": "attempt to gain unauthorized access to the Services, other accounts or our systems."
+          },
+          {
+            "text": "interfere with or disrupt the Services, including by overloading our servers or networks."
+          },
+          {
+            "text": "copy, resell or redistribute any part of the Services without our prior written consent."
+          }
+        ]
+      },
+      {
+        "heading": "Intellectual property",
+        "paragraphs": [
+          "The Services and all content, features and functionality we make available are owned by SaaS Template and are protected by intellectual property laws.",
+          "The SaaS Template name and related marks may not be used without our prior written permission."
+        ]
+      },
+      {
+        "heading": "Disclaimers and limitation of liability",
+        "paragraphs": [
+          "The Services are provided on an \"as-is\" and \"as-available\" basis, without warranties of any kind. We do not guarantee that the Services will be uninterrupted, timely, secure or error-free.",
+          "To the fullest extent permitted by law, SaaS Template shall not be liable for any indirect, incidental, special, consequential or punitive damages arising from your use of the Services."
+        ]
+      },
+      {
+        "heading": "Termination",
+        "paragraphs": [
+          "We may suspend or terminate your access to the Services at any time for a breach of these Terms.",
+          "You may stop using the Services at any time and delete your account from your account settings. Upon termination your right to use the Services immediately ceases."
+        ]
+      },
+      {
+        "heading": "Changes and contact",
+        "paragraphs": [
+          "We may modify these Terms at any time. Changes take effect when posted, and your continued use of the Services constitutes acceptance of the updated Terms.",
+          "For any questions about these Terms, contact us at support@example.com."
+        ]
+      }
+    ]
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "intro": [
+      "This Privacy Policy explains how SaaS Template collects, uses and protects your personal information when you use the website, software and services (collectively, the \"Services\"). It is placeholder text shipped with the template: replace it with your own policy before launching a real product.",
+      "By using the Services you consent to the practices described in this policy."
+    ],
+    "sections": [
+      {
+        "heading": "Information we collect",
+        "paragraphs": ["We collect the following categories of information:"],
+        "items": [
+          {
+            "label": "Account information:",
+            "text": "your name, email address and password, used to create and secure your account."
+          },
+          {
+            "label": "Profile information:",
+            "text": "the profile picture you choose to upload."
+          },
+          {
+            "label": "Usage data:",
+            "text": "how you interact with the Services, including the pages you visit."
+          },
+          {
+            "label": "Cookies:",
+            "text": "we use cookies to maintain sessions and remember your language and theme preferences. You can control cookies through your browser settings."
+          },
+          {
+            "label": "Session logs:",
+            "text": "your device, browser type and IP address, kept for security purposes such as reviewing the devices signed in to your account."
+          }
+        ]
+      },
+      {
+        "heading": "How we use your information",
+        "paragraphs": ["We use the collected information to:"],
+        "items": [
+          { "text": "provide, operate and improve the Services." },
+          {
+            "text": "secure your account, verify your email address and prevent fraud or abuse."
+          },
+          {
+            "text": "communicate with you about your account and service updates."
+          },
+          { "text": "comply with legal obligations." }
+        ]
+      },
+      {
+        "heading": "Information sharing",
+        "paragraphs": [
+          "We do not sell your personal information. We may share it with service providers that help us operate the Services, such as hosting and file storage, and we may disclose it when required to do so by law."
+        ]
+      },
+      {
+        "heading": "Security and retention",
+        "paragraphs": [
+          "We use industry-standard measures, including encrypted password storage and token based authentication, to protect your information. No online service can guarantee absolute security, so please safeguard your credentials.",
+          "We retain your information for as long as your account is active. You can delete your account at any time from your account settings, or request deletion by contacting us at support@example.com."
+        ]
+      },
+      {
+        "heading": "Changes and contact",
+        "paragraphs": [
+          "We may update this Privacy Policy at any time. Changes will be posted on this page, and your continued use of the Services constitutes acceptance of the updated policy.",
+          "If you have any questions about this policy or your data, contact us at support@example.com."
+        ]
+      }
+    ]
+  }
+}

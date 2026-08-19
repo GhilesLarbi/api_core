@@ -1,0 +1,47 @@
+# ── Secrets ──────────────────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ── Python bytecode & extensions ─────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# ── Virtual environments ─────────────────────────────────────────────────────
+.venv/
+venv/
+ENV/
+env/
+
+# ── Packaging / build artifacts ──────────────────────────────────────────────
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# ── Test, coverage & lint caches ─────────────────────────────────────────────
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pytype/
+.tox/
+.nox/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# ── Notebooks ────────────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+
+# ── Local runtime output ─────────────────────────────────────────────────────
+*.db
+*.sqlite3
+*.pid
+uploads/
+media/

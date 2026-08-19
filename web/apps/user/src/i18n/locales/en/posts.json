@@ -1,0 +1,27 @@
+{
+  "title": "Posts",
+  "tabs": {
+    "all": "All",
+    "saved": "Saved"
+  },
+  "newPost": "New post",
+  "save": "Save post",
+  "empty": {
+    "title": "No posts yet",
+    "description": "Be the first to publish a post."
+  },
+  "emptySaved": {
+    "title": "No saved posts",
+    "description": "Posts you save will appear here."
+  },
+  "form": {
+    "title": "New post",
+    "close": "Close",
+    "titleLabel": "Title",
+    "titleRequired": "Enter a title of at least 2 characters.",
+    "contentLabel": "Content",
+    "contentRequired": "Write something before publishing.",
+    "addMedia": "Add a photo or a video",
+    "submit": "Publish"
+  }
+}

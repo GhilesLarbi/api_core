@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.tsbuildinfo",
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "resolveJsonModule": true,
+    "noEmit": true,
+
+    /* The package imports itself by name so consumers and internals share one
+       import path. Nothing installs @shared/ui into its own node_modules, so
+       the compiler is told where those specifiers live. */
+    "paths": {
+      "@shared/ui/components/*": ["./src/components/*"],
+      "@shared/ui/context/*": ["./src/context/*"],
+      "@shared/ui/hooks/*": ["./src/hooks/*"],
+      "@shared/ui/lib/*": ["./src/lib/*"],
+      "@shared/ui/assets/*": ["./src/assets/*/index.ts"],
+      "@shared/ui/locales/*": ["./src/locales/*"]
+    },
+
+    /* Same strictness the apps compile under — this package was previously
+       skipped by `pnpm -r typecheck` because it declared no scripts. */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true
+  },
+  "include": ["src"]
+}

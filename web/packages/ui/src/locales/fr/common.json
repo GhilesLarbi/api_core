@@ -1,0 +1,124 @@
+{
+  "language": {
+    "label": "Langue"
+  },
+  "theme": {
+    "toggle": "Changer de thème",
+    "light": "Clair",
+    "dark": "Sombre",
+    "system": "Système"
+  },
+  "commandMenu": {
+    "placeholder": "Tapez une commande ou une recherche...",
+    "navigationHeading": "Navigation",
+    "themeHeading": "Thème",
+    "languageHeading": "Langue"
+  },
+  "actions": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "create": "Créer",
+    "close": "Fermer",
+    "confirm": "Confirmer",
+    "back": "Retour",
+    "next": "Suivant",
+    "continue": "Continuer",
+    "search": "Rechercher",
+    "clearFilters": "Effacer les filtres",
+    "viewDetails": "Voir les détails",
+    "signOut": "Se déconnecter",
+    "reset": "Réinitialiser",
+    "openMenu": "Ouvrir le menu",
+    "done": "Terminé",
+    "clear": "Effacer"
+  },
+  "signOutDialog": {
+    "title": "Se déconnecter",
+    "description": "Voulez-vous vraiment vous déconnecter ? Vous devrez vous reconnecter pour accéder au tableau de bord."
+  },
+  "status": {
+    "loading": "Chargement...",
+    "noResults": "Aucun résultat trouvé.",
+    "somethingWentWrong": "Une erreur est survenue.",
+    "comingSoon": "Bientôt disponible."
+  },
+  "errors": {
+    "title": "Une erreur est survenue"
+  },
+  "table": {
+    "rowsPerPage": "Lignes par page",
+    "pageOf": "Page {{current}} sur {{total}}",
+    "rowsSelected_one": "{{count}} ligne sélectionnée sur {{total}}.",
+    "rowsSelected_other": "{{count}} lignes sélectionnées sur {{total}}.",
+    "filterPlaceholder": "Filtrer...",
+    "toggleColumns": "Afficher/masquer les colonnes",
+    "sortAsc": "Croissant",
+    "sortDesc": "Décroissant",
+    "hideColumn": "Masquer",
+    "goToFirstPage": "Aller à la première page",
+    "goToPreviousPage": "Aller à la page précédente",
+    "goToNextPage": "Aller à la page suivante",
+    "goToLastPage": "Aller à la dernière page",
+    "goToPage": "Aller à la page {{page}}"
+  },
+  "upload": {
+    "chooseImage": "Choisir une image",
+    "chooseDifferentImage": "Choisir une autre image",
+    "dropHint": "Glissez-déposez une image ici, ou cliquez pour téléverser",
+    "dropSubhint": "PNG, JPG ou WEBP jusqu’à {{size}} Mo",
+    "uploadImage": "Téléverser une image",
+    "uploading": "Téléchargement...",
+    "fileTooLarge": "Le fichier est trop volumineux.",
+    "invalidFileType": "Type de fichier non pris en charge.",
+    "failed": "Échec du téléversement. Veuillez réessayer.",
+    "viewDocument": "Voir le document",
+    "noDocument": "Aucun document téléversé",
+    "chooseDocument": "Choisir un fichier",
+    "replaceDocument": "Remplacer",
+    "addDocument": "Ajouter un document",
+    "removeDocument": "Supprimer le document",
+    "documentIndex": "Document {{index}}",
+    "kinds": {
+      "photo": "Photo",
+      "video": "Vidéo",
+      "voiceNote": "Note vocale",
+      "recording": "Enregistrement",
+      "file": "Fichier"
+    },
+    "numbered": "{{name}} {{number}}"
+  },
+  "selection": {
+    "count_one": "{{count}} sélectionné",
+    "count_other": "{{count}} sélectionnés",
+    "clear": "Effacer la sélection",
+    "clearHint": "Effacer la sélection (Échap)",
+    "announcement_one": "{{count}} {{entity}} sélectionné. La barre d'actions groupées est disponible.",
+    "announcement_other": "{{count}} {{entity}} sélectionnés. La barre d'actions groupées est disponible.",
+    "toolbarAriaLabel_one": "Actions groupées pour {{count}} {{entity}} sélectionné",
+    "toolbarAriaLabel_other": "Actions groupées pour {{count}} {{entity}} sélectionnés",
+    "label_one": "{{entity}} sélectionné",
+    "label_other": "{{entity}} sélectionnés"
+  },
+  "fontSize": {
+    "label": "Taille du texte",
+    "description": "Redimensionne toute l'interface, pas seulement le texte.",
+    "small": "Petite",
+    "default": "Par défaut",
+    "large": "Grande",
+    "larger": "Très grande"
+  },
+  "capture": {
+    "photoTitle": "Prendre une photo",
+    "videoTitle": "Enregistrer une video",
+    "audioTitle": "Enregistrer un vocal",
+    "record": "Enregistrer",
+    "stop": "Arreter",
+    "take": "Prendre la photo",
+    "use": "Utiliser",
+    "retake": "Recommencer",
+    "denied": "L'acces a la camera et au micro est necessaire pour enregistrer. Autorisez-le dans votre navigateur, puis reessayez.",
+    "unsupported": "Cet appareil ne peut pas enregistrer ici. Joignez plutot un fichier."
+  }
+}

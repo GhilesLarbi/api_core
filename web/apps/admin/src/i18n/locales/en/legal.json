@@ -1,0 +1,110 @@
+{
+  "terms": {
+    "title": "Terms of Service",
+    "intro": [
+      "These Terms of Service (\"Terms\") govern your use of the SaaS Template website, software, and services (collectively, the \"Services\"). By accessing or using the Services, you agree to be bound by these Terms. If you do not agree to these Terms, please do not use the Services.",
+      "This document is placeholder template text. Replace it with terms reviewed by your own legal counsel before launching."
+    ],
+    "sections": [
+      {
+        "heading": "Acceptance of Terms",
+        "paragraphs": [
+          "By creating an account or using SaaS Template, you agree to these Terms and to any additional terms that may apply to specific features of the platform.",
+          "SaaS Template may modify these Terms at any time. Continued use of the Services after a change constitutes acceptance of the updated Terms."
+        ]
+      },
+      {
+        "heading": "Accounts",
+        "paragraphs": [
+          "You must provide accurate and complete information when creating an account and keep it up to date.",
+          "You are responsible for maintaining the confidentiality of your credentials and for all activity that occurs under your account.",
+          "You agree not to use the Services for any unlawful purpose or in any way that could damage, disable, or impair the Services."
+        ]
+      },
+      {
+        "heading": "Intellectual Property",
+        "paragraphs": [
+          "The Services and all content, features, and functionality provided by SaaS Template are owned by SaaS Template and protected by intellectual property laws.",
+          "You may not reproduce, distribute, or create derivative works of any part of the Services without prior written consent."
+        ]
+      },
+      {
+        "heading": "Termination",
+        "paragraphs": [
+          "SaaS Template may suspend or terminate your access to the Services at any time for a breach of these Terms.",
+          "You may stop using the Services and delete your account at any time. Upon termination, your right to use the Services immediately ceases."
+        ]
+      },
+      {
+        "heading": "Disclaimers and Liability",
+        "paragraphs": [
+          "The Services are provided on an \"as is\" and \"as available\" basis, without warranties of any kind.",
+          "To the fullest extent permitted by law, SaaS Template shall not be liable for any indirect, incidental, or consequential damages arising from your use of the Services."
+        ]
+      },
+      {
+        "heading": "Contact",
+        "paragraphs": [
+          "If you have any questions about these Terms, contact us at support@example.com."
+        ]
+      }
+    ]
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "intro": [
+      "This Privacy Policy describes how SaaS Template collects, uses, and protects your information when you use the Services.",
+      "This document is placeholder template text. Replace it with a policy reviewed by your own legal counsel before launching."
+    ],
+    "sections": [
+      {
+        "heading": "Information We Collect",
+        "paragraphs": [
+          "We collect the information you provide directly and some information automatically when you use the Services:"
+        ],
+        "items": [
+          {
+            "label": "Account information.",
+            "text": "Your name, email address, and password when you create an account."
+          },
+          {
+            "label": "Profile information.",
+            "text": "Optional details you add, such as a profile picture."
+          },
+          {
+            "label": "Usage information.",
+            "text": "Technical data such as IP address, browser type, and the pages you visit."
+          }
+        ]
+      },
+      {
+        "heading": "How We Use Information",
+        "paragraphs": [
+          "We use your information to provide and improve the Services, to secure your account, and to communicate with you about your account and service updates.",
+          "We do not sell your personal information."
+        ]
+      },
+      {
+        "heading": "Data Retention",
+        "paragraphs": [
+          "We keep your information for as long as your account is active or as needed to provide the Services.",
+          "You can delete your account at any time, after which your personal information is removed or anonymized."
+        ]
+      },
+      {
+        "heading": "Security",
+        "paragraphs": [
+          "We use reasonable technical and organizational measures to protect your information, including encryption of passwords and secure connections.",
+          "No method of transmission or storage is completely secure, and we cannot guarantee absolute security."
+        ]
+      },
+      {
+        "heading": "Your Rights",
+        "paragraphs": [
+          "You may access, correct, or delete your personal information from your account settings, or by contacting us.",
+          "If you have any questions about this Privacy Policy, contact us at support@example.com."
+        ]
+      }
+    ]
+  }
+}

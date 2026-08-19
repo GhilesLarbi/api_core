@@ -1,0 +1,25 @@
+{
+  "identities": [
+    {
+      "name": "temp-fs",
+      "credentials": [
+        {
+          "accessKey": "__ACCESS_KEY__",
+          "secretKey": "__SECRET_KEY__"
+        }
+      ],
+      "actions": [
+        "Read",
+        "Write"
+      ]
+    },
+    {
+      "name": "anonymous",
+      "actions": [
+        "Read:temp-fs",
+        "Read:user",
+        "Read:admin"
+      ]
+    }
+  ]
+}

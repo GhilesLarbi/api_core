@@ -1,0 +1,16 @@
+{
+  "brand": {
+    "name": "SaaS Template",
+    "tagline": "Start your next product here"
+  },
+  "account": {
+    "signIn": "Log in",
+    "signOut": "Log out",
+    "menu": "Your account",
+    "settings": "Account"
+  },
+  "items": {
+    "home": "Home",
+    "posts": "Posts"
+  }
+}

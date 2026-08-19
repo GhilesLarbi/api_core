@@ -1,0 +1,26 @@
+import * as React from 'react'
+
+import { JoinedGroup } from '@shared/ui/components/joined-group'
+import { FieldGroupContext } from '@shared/ui/hooks/use-in-field-group'
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+export function FieldGroup({
+  className,
+  children,
+}: {
+  className?: string
+  children: React.ReactNode
+}) {
+  return (
+    <FieldGroupContext.Provider value={true}>
+      <JoinedGroup className={className}>{children}</JoinedGroup>
+    </FieldGroupContext.Provider>
+  )
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+export function FieldGroupLabel({ children }: { children: React.ReactNode }) {
+  return <p className='text-sm font-medium'>{children}</p>
+}

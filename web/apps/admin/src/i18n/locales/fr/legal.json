@@ -1,0 +1,110 @@
+{
+  "terms": {
+    "title": "Conditions d'utilisation",
+    "intro": [
+      "Les présentes Conditions d'utilisation (« Conditions ») régissent votre utilisation du site web, des logiciels et des services de SaaS Template (collectivement, les « Services »). En accédant aux Services ou en les utilisant, vous acceptez d'être lié par ces Conditions. Si vous n'acceptez pas ces Conditions, veuillez ne pas utiliser les Services.",
+      "Ce document est un texte de modèle provisoire. Remplacez-le par des conditions validées par votre propre conseil juridique avant le lancement."
+    ],
+    "sections": [
+      {
+        "heading": "Acceptation des Conditions",
+        "paragraphs": [
+          "En créant un compte ou en utilisant SaaS Template, vous acceptez ces Conditions ainsi que toute condition supplémentaire applicable à certaines fonctionnalités de la plateforme.",
+          "SaaS Template peut modifier ces Conditions à tout moment. La poursuite de l'utilisation des Services après une modification vaut acceptation des Conditions mises à jour."
+        ]
+      },
+      {
+        "heading": "Comptes",
+        "paragraphs": [
+          "Vous devez fournir des informations exactes et complètes lors de la création d'un compte et les maintenir à jour.",
+          "Vous êtes responsable de la confidentialité de vos identifiants et de toute activité effectuée depuis votre compte.",
+          "Vous vous engagez à ne pas utiliser les Services à des fins illicites ni d'une manière qui pourrait endommager, désactiver ou altérer les Services."
+        ]
+      },
+      {
+        "heading": "Propriété intellectuelle",
+        "paragraphs": [
+          "Les Services ainsi que l'ensemble des contenus, fonctionnalités et éléments fournis par SaaS Template appartiennent à SaaS Template et sont protégés par les lois sur la propriété intellectuelle.",
+          "Vous ne pouvez pas reproduire, distribuer ou créer des œuvres dérivées d'une partie des Services sans consentement écrit préalable."
+        ]
+      },
+      {
+        "heading": "Résiliation",
+        "paragraphs": [
+          "SaaS Template peut suspendre ou résilier votre accès aux Services à tout moment en cas de violation de ces Conditions.",
+          "Vous pouvez cesser d'utiliser les Services et supprimer votre compte à tout moment. En cas de résiliation, votre droit d'utiliser les Services cesse immédiatement."
+        ]
+      },
+      {
+        "heading": "Exclusions de garantie et responsabilité",
+        "paragraphs": [
+          "Les Services sont fournis « en l'état » et « selon disponibilité », sans garantie d'aucune sorte.",
+          "Dans toute la mesure permise par la loi, SaaS Template ne saurait être tenu responsable des dommages indirects, accessoires ou consécutifs résultant de votre utilisation des Services."
+        ]
+      },
+      {
+        "heading": "Contact",
+        "paragraphs": [
+          "Pour toute question concernant ces Conditions, contactez-nous à support@example.com."
+        ]
+      }
+    ]
+  },
+  "privacy": {
+    "title": "Politique de confidentialité",
+    "intro": [
+      "La présente Politique de confidentialité décrit comment SaaS Template collecte, utilise et protège vos informations lorsque vous utilisez les Services.",
+      "Ce document est un texte de modèle provisoire. Remplacez-le par une politique validée par votre propre conseil juridique avant le lancement."
+    ],
+    "sections": [
+      {
+        "heading": "Informations collectées",
+        "paragraphs": [
+          "Nous collectons les informations que vous fournissez directement ainsi que certaines informations automatiquement lorsque vous utilisez les Services :"
+        ],
+        "items": [
+          {
+            "label": "Informations de compte.",
+            "text": "Votre nom, votre adresse e-mail et votre mot de passe lors de la création d'un compte."
+          },
+          {
+            "label": "Informations de profil.",
+            "text": "Les informations facultatives que vous ajoutez, comme une photo de profil."
+          },
+          {
+            "label": "Informations d'utilisation.",
+            "text": "Des données techniques telles que l'adresse IP, le type de navigateur et les pages visitées."
+          }
+        ]
+      },
+      {
+        "heading": "Utilisation des informations",
+        "paragraphs": [
+          "Nous utilisons vos informations pour fournir et améliorer les Services, sécuriser votre compte et communiquer avec vous au sujet de votre compte et des mises à jour du service.",
+          "Nous ne vendons pas vos informations personnelles."
+        ]
+      },
+      {
+        "heading": "Conservation des données",
+        "paragraphs": [
+          "Nous conservons vos informations tant que votre compte est actif ou aussi longtemps que nécessaire pour fournir les Services.",
+          "Vous pouvez supprimer votre compte à tout moment ; vos informations personnelles sont alors supprimées ou anonymisées."
+        ]
+      },
+      {
+        "heading": "Sécurité",
+        "paragraphs": [
+          "Nous mettons en œuvre des mesures techniques et organisationnelles raisonnables pour protéger vos informations, notamment le chiffrement des mots de passe et des connexions sécurisées.",
+          "Aucune méthode de transmission ou de stockage n'est totalement sûre et nous ne pouvons garantir une sécurité absolue."
+        ]
+      },
+      {
+        "heading": "Vos droits",
+        "paragraphs": [
+          "Vous pouvez consulter, corriger ou supprimer vos informations personnelles depuis les paramètres de votre compte, ou en nous contactant.",
+          "Pour toute question concernant cette Politique de confidentialité, contactez-nous à support@example.com."
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "loadMore": {
+    "progress": "{{loaded}} of {{total}} results",
+    "action": "Load more",
+    "backToTop": "Back to top"
+  }
+}

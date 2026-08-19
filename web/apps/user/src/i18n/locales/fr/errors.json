@@ -1,0 +1,25 @@
+{
+  "goBack": "Retour",
+  "backToHome": "Retour à l'accueil",
+  "notFound": {
+    "title": "Oups ! Page introuvable !",
+    "message": "Il semble que la page que vous recherchez n'existe pas ou a peut-être été supprimée."
+  },
+  "serverError": {
+    "title": "Oups ! Une erreur est survenue :')",
+    "message": "Nous nous excusons pour la gêne occasionnée. Veuillez réessayer plus tard."
+  },
+  "forbidden": {
+    "title": "Accès interdit",
+    "message": "Vous n'avez pas les autorisations nécessaires pour consulter cette ressource."
+  },
+  "unauthorized": {
+    "title": "Accès non autorisé",
+    "message": "Veuillez vous connecter avec les identifiants appropriés pour accéder à cette ressource."
+  },
+  "maintenance": {
+    "title": "Le site est en maintenance !",
+    "message": "Le site n'est pas disponible pour le moment. Nous serons bientôt de retour en ligne.",
+    "learnMore": "En savoir plus"
+  }
+}

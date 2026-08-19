@@ -1,0 +1,45 @@
+name: Deploy
+
+on:
+  push:
+    branches: [] # add branches: master, staging ..etc
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref_name }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      TARGET: /root/saas-template-${{ github.ref_name }}
+    steps:
+      - name: Check out
+        uses: actions/checkout@v5
+
+      - name: Set up ssh
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          printf '%s\n' "${{ secrets.VPS_HOST_KEY }}" >> ~/.ssh/known_hosts
+          printf 'Host vps\n HostName ${{ secrets.VPS_HOST }}\n User ${{ secrets.VPS_USER }}\n IdentitiesOnly yes\n' >> ~/.ssh/config
+
+      - name: Make folder
+        run: ssh vps "mkdir -p $TARGET"
+
+      - name: Send code
+        run: rsync -az --delete --exclude=.git --exclude=.env --exclude=backend/.env ./ vps:$TARGET/
+
+      - name: Build images
+        run: ssh vps "cd $TARGET && docker compose build"
+
+      - name: Start compose
+        run: ssh vps "cd $TARGET && docker compose up -d"
+
+      - name: Migrate database
+        run: ssh vps "cd $TARGET && docker compose exec -T api alembic upgrade head"
+
+      - name: Prune docker
+        run: ssh vps "docker image prune -f --filter until=168h && docker builder prune -f --filter until=168h"

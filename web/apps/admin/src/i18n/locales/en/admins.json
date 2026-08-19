@@ -1,0 +1,63 @@
+{
+  "title": "Admins",
+  "actions": {
+    "addAdmin": "Add admin",
+    "permissions": "Permissions",
+    "changePassword": "Change password"
+  },
+  "columns": {
+    "name": "Admin",
+    "email": "Email",
+    "permissions": "Permissions",
+    "createdAt": "Created"
+  },
+  "permissions": {
+    "none": "No permissions",
+    "count_one": "{{count}} permission",
+    "count_other": "{{count}} permissions"
+  },
+  "toolbar": {
+    "searchPlaceholder": "Search..."
+  },
+  "table": {
+    "emptyTitle": "No admins found",
+    "emptySubtitle": "Adjust your search, or add an admin account."
+  },
+  "passwordDialog": {
+    "title": "Change password",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password"
+  },
+  "permissionsDialog": {
+    "title": "Permissions",
+    "selfWarning": "This is your own account. Removing a permission here takes it away from you immediately.",
+    "loadFailed": "The permission list could not be loaded."
+  },
+  "deleteDialog": {
+    "title": "Delete admin",
+    "description": "{{name}} will lose access immediately and every session they have open will be signed out. This cannot be undone."
+  },
+  "validation": {
+    "emailInvalid": "Please enter a valid email address",
+    "nameTooShort": "Please enter at least 2 characters",
+    "phoneInvalid": "Please enter a valid phone number",
+    "passwordWeak": "Password must be at least 8 characters and include an uppercase letter, a lowercase letter, a digit and a special character",
+    "passwordMismatch": "The two passwords do not match"
+  },
+  "fields": {
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "phone": "Phone",
+    "password": "Password",
+    "avatar": "Picture"
+  },
+  "panel": {
+    "createTitle": "New admin",
+    "emptyTitle": "No admin selected",
+    "emptyBody": "Pick an admin from the table to see their account here.",
+    "profile": "Profile",
+    "account": "Account",
+    "permissions": "Permissions"
+  }
+}

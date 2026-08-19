@@ -1,0 +1,82 @@
+{
+  "title": "Paramètres",
+  "nav": {
+    "groups": {
+      "account": "Gérer mon compte",
+      "personalization": "Personnalisation",
+      "more": "Infos et assistance"
+    },
+    "profile": "Profil",
+    "email": "E-mail et compte",
+    "security": "Mot de passe et sécurité",
+    "appearance": "Apparence",
+    "language": "Langue",
+    "legal": "Conditions et confidentialité"
+  },
+  "profile": {
+    "title": "Profil",
+    "description": "Mettez à jour votre nom et votre photo de profil.",
+    "photoLabel": "Photo de profil",
+    "firstNameLabel": "Prénom",
+    "firstNameRequired": "Saisissez votre prénom.",
+    "lastNameLabel": "Nom",
+    "lastNameRequired": "Saisissez votre nom.",
+    "submit": "Enregistrer les modifications"
+  },
+  "email": {
+    "title": "E-mail et compte",
+    "description": "Changez l'adresse e-mail associée à votre compte.",
+    "emailLabel": "E-mail",
+    "newEmailRequired": "Saisissez une adresse e-mail valide.",
+    "changeRequested": "Consultez la boîte de réception de la nouvelle adresse pour confirmer le changement.",
+    "resendVerification": "Renvoyer l'e-mail de vérification",
+    "connectedAccounts": "Comptes connectés",
+    "connectGoogle": "Connecter un compte Google",
+    "connectFacebook": "Connecter un compte Facebook"
+  },
+  "security": {
+    "title": "Mot de passe et sécurité",
+    "description": "Changez votre mot de passe et vérifiez où vous êtes connecté.",
+    "changePassword": "Changer le mot de passe",
+    "oldPasswordLabel": "Mot de passe actuel",
+    "oldPasswordRequired": "Saisissez votre mot de passe actuel.",
+    "newPasswordLabel": "Nouveau mot de passe",
+    "passwordMinLength": "Le mot de passe doit contenir au moins 8 caractères.",
+    "passwordLowercase": "Le mot de passe doit contenir une minuscule.",
+    "passwordUppercase": "Le mot de passe doit contenir une majuscule.",
+    "passwordNumber": "Le mot de passe doit contenir un chiffre.",
+    "passwordSpecialChar": "Le mot de passe doit contenir un caractère spécial.",
+    "confirmPasswordLabel": "Confirmer le nouveau mot de passe",
+    "passwordMismatch": "Les mots de passe ne correspondent pas.",
+    "connectedDevices": "Appareils connectés",
+    "disconnectAll": "Déconnecter tous les appareils",
+    "disconnectAllDesc": "Vous serez déconnecté sur tous les appareils, y compris celui-ci.",
+    "disconnectDevice": "Déconnecter l'appareil",
+    "disconnectDeviceDesc": "Cet appareil sera déconnecté et devra se reconnecter.",
+    "disconnect": "Déconnecter",
+    "unknownDevice": "Appareil inconnu",
+    "noDevices": "Aucune session active.",
+    "devicesFailed": "Impossible de charger vos appareils.",
+    "deleteAccount": "Supprimer le compte",
+    "deleteAccountDesc": "Supprimez définitivement votre compte et tout ce qui y est lié.",
+    "deleteAccountConfirmDesc": "Votre compte sera définitivement supprimé. Cette action est irréversible."
+  },
+  "appearance": {
+    "title": "Apparence",
+    "description": "Personnalisez l'apparence du site.",
+    "fontLabel": "Police",
+    "fontDescription": "Choisissez la police à utiliser sur le site.",
+    "themeLabel": "Thème"
+  },
+  "language": {
+    "title": "Langue",
+    "description": "Choisissez la langue du site."
+  },
+  "legal": {
+    "title": "Conditions et confidentialité",
+    "description": "Consultez les conditions qui régissent votre utilisation de SaaS Template.",
+    "terms": "Conditions d'utilisation",
+    "privacy": "Politique de confidentialité",
+    "copyright": "© {{year}} SaaS Template. Tous droits réservés."
+  }
+}

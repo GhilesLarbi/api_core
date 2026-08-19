@@ -1,0 +1,46 @@
+{
+  "title": "Publications",
+  "columns": {
+    "title": "Publication",
+    "author": "Auteur",
+    "media": "Médias",
+    "visibility": "Visibilité",
+    "createdAt": "Création"
+  },
+  "visibility": {
+    "visible": "Visible",
+    "hidden": "Masquée"
+  },
+  "toolbar": {
+    "searchPlaceholder": "Rechercher...",
+    "visibility": {
+      "all": "Toutes",
+      "visible": "Visibles",
+      "hidden": "Masquées"
+    }
+  },
+  "table": {
+    "emptyTitle": "Aucune publication trouvée",
+    "emptySubtitle": "Modifiez votre recherche ou vos filtres."
+  },
+  "deleteDialog": {
+    "title": "Supprimer la publication",
+    "description": "« {{title}} » sera supprimée pour tout le monde, y compris son auteur. Cette action est irréversible."
+  },
+  "validation": {
+    "titleTooShort": "Veuillez saisir au moins 2 caractères",
+    "contentRequired": "Veuillez saisir un contenu"
+  },
+  "fields": {
+    "title": "Titre",
+    "content": "Contenu",
+    "hiddenLabel": "Masquée"
+  },
+  "panel": {
+    "emptyTitle": "Aucune publication sélectionnée",
+    "emptyBody": "Choisissez une publication dans le tableau pour la voir ici.",
+    "details": "Détails",
+    "media": "Médias",
+    "visibility": "Visibilité"
+  }
+}

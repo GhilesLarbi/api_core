@@ -1,0 +1,46 @@
+{
+  "title": "Utilisateurs",
+  "actions": {
+    "addUser": "Ajouter un utilisateur"
+  },
+  "columns": {
+    "name": "Utilisateur",
+    "email": "E-mail",
+    "verified": "Statut de l'e-mail",
+    "createdAt": "Création"
+  },
+  "status": {
+    "verified": "Vérifié",
+    "unverified": "Non vérifié"
+  },
+  "toolbar": {
+    "searchPlaceholder": "Rechercher..."
+  },
+  "table": {
+    "emptyTitle": "Aucun utilisateur trouvé",
+    "emptySubtitle": "Modifiez votre recherche ou ajoutez un compte utilisateur."
+  },
+  "deleteDialog": {
+    "title": "Supprimer l'utilisateur",
+    "description": "{{name}} perdra l'accès immédiatement et toutes ses sessions ouvertes seront fermées. Cette action est irréversible."
+  },
+  "validation": {
+    "emailInvalid": "Veuillez saisir une adresse e-mail valide",
+    "nameTooShort": "Veuillez saisir au moins 2 caractères",
+    "passwordWeak": "Le mot de passe doit contenir au moins 8 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial"
+  },
+  "fields": {
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "avatar": "Photo"
+  },
+  "panel": {
+    "createTitle": "Nouvel utilisateur",
+    "emptyTitle": "Aucun utilisateur sélectionné",
+    "emptyBody": "Choisissez un utilisateur dans le tableau pour voir son compte ici.",
+    "profile": "Profil",
+    "account": "Compte"
+  }
+}

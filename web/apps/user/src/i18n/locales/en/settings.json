@@ -1,0 +1,82 @@
+{
+  "title": "Settings",
+  "nav": {
+    "groups": {
+      "account": "Manage my account",
+      "personalization": "Personalization",
+      "more": "More info and support"
+    },
+    "profile": "Profile",
+    "email": "Email and account",
+    "security": "Password and security",
+    "appearance": "Appearance",
+    "language": "Language",
+    "legal": "Terms and privacy"
+  },
+  "profile": {
+    "title": "Profile",
+    "description": "Update your name and profile picture.",
+    "photoLabel": "Profile picture",
+    "firstNameLabel": "First name",
+    "firstNameRequired": "Enter your first name.",
+    "lastNameLabel": "Last name",
+    "lastNameRequired": "Enter your last name.",
+    "submit": "Save changes"
+  },
+  "email": {
+    "title": "Email and account",
+    "description": "Change the email address linked to your account.",
+    "emailLabel": "Email",
+    "newEmailRequired": "Enter a valid email address.",
+    "changeRequested": "Check the inbox of the new address to confirm the change.",
+    "resendVerification": "Resend verification email",
+    "connectedAccounts": "Connected accounts",
+    "connectGoogle": "Connect Google account",
+    "connectFacebook": "Connect Facebook account"
+  },
+  "security": {
+    "title": "Password and security",
+    "description": "Change your password and review where you are signed in.",
+    "changePassword": "Change password",
+    "oldPasswordLabel": "Current password",
+    "oldPasswordRequired": "Enter your current password.",
+    "newPasswordLabel": "New password",
+    "passwordMinLength": "Password must be at least 8 characters.",
+    "passwordLowercase": "Password must contain a lowercase letter.",
+    "passwordUppercase": "Password must contain an uppercase letter.",
+    "passwordNumber": "Password must contain a number.",
+    "passwordSpecialChar": "Password must contain a special character.",
+    "confirmPasswordLabel": "Confirm new password",
+    "passwordMismatch": "Passwords do not match.",
+    "connectedDevices": "Connected devices",
+    "disconnectAll": "Disconnect all devices",
+    "disconnectAllDesc": "This signs you out on every device, including this one.",
+    "disconnectDevice": "Disconnect device",
+    "disconnectDeviceDesc": "This device will be signed out and will need to sign in again.",
+    "disconnect": "Disconnect",
+    "unknownDevice": "Unknown device",
+    "noDevices": "No active sessions.",
+    "devicesFailed": "Couldn't load your devices.",
+    "deleteAccount": "Delete account",
+    "deleteAccountDesc": "Permanently delete your account and everything linked to it.",
+    "deleteAccountConfirmDesc": "This permanently deletes your account. This action cannot be undone."
+  },
+  "appearance": {
+    "title": "Appearance",
+    "description": "Customize the look of the site.",
+    "fontLabel": "Font",
+    "fontDescription": "Set the font you want to use on the site.",
+    "themeLabel": "Theme"
+  },
+  "language": {
+    "title": "Language",
+    "description": "Choose the language of the site."
+  },
+  "legal": {
+    "title": "Terms and privacy",
+    "description": "Review the terms that govern your use of SaaS Template.",
+    "terms": "Terms of service",
+    "privacy": "Privacy policy",
+    "copyright": "© {{year}} SaaS Template. All rights reserved."
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "filters": {
+    "day": "يوم",
+    "week": "أسبوع",
+    "month": "شهر",
+    "presets": {
+      "today": "اليوم",
+      "yesterday": "أمس",
+      "last_7_days": "آخر 7 أيام",
+      "last_14_days": "آخر 14 يوما",
+      "last_30_days": "آخر 30 يوما",
+      "last_60_days": "آخر 60 يوما",
+      "last_90_days": "آخر 3 أشهر",
+      "last_180_days": "آخر 6 أشهر",
+      "last_365_days": "آخر 12 شهرا",
+      "this_month": "هذا الشهر",
+      "last_month": "الشهر الماضي",
+      "all_time": "كل الوقت"
+    }
+  },
+  "finances": {
+    "previous": "السابق",
+    "revenue": {
+      "title": "الإيرادات",
+      "sub": "اليوم {{amount}} · إجمالي"
+    },
+    "mrr": {
+      "title": "إجمالي MRR",
+      "sub": "مشتركون فعليون · {{amount}} ضمن مرحلة التجربة"
+    },
+    "keyMetrics": {
+      "title": "المؤشرات الرئيسية",
+      "ltvPerUser": "القيمة الدائمة / مستخدم",
+      "avgRevenuePerUser": "متوسط الإيراد / مستخدم",
+      "paidRetention": "معدل الاحتفاظ المدفوع",
+      "cancellations": "الإلغاءات",
+      "totalPaidUsers": "إجمالي المستخدمين المدفوعين",
+      "freeUsers": "المستخدمون المجانيون",
+      "activeTrials": "التجارب النشطة"
+    },
+    "monthlyNet": {
+      "title": "الصافي الشهري",
+      "revenue": "الإيرادات (Lemon Squeezy + Apple)",
+      "awsCosts": "تكاليف AWS",
+      "mercuryCosts": "تكاليف Mercury Bank",
+      "creatorPayouts": "مدفوعات صانعي المحتوى",
+      "remaining": "المتبقي",
+      "upcomingPayouts": "المدفوعات القادمة (الشهر المقبل)",
+      "disclaimer": "تظهر تكاليف AWS ومدفوعات صانعي المحتوى أيضًا في Mercury — تجنب احتسابها مرتين مقابل كشف الحساب البنكي. تحقق من أرقام Apple في App Store Connect (الوحدات / العائدات)."
+    }
+  },
+  "generalErrors": {
+    "title": "الأخطاء العامة",
+    "chartLabel": "الأخطاء",
+    "totalErrors": "إجمالي الأخطاء",
+    "backend": "الواجهة الخلفية",
+    "frontend": "الواجهة الأمامية",
+    "appCrashes": "أعطال التطبيق"
+  },
+  "avgTime": {
+    "title": "متوسط الوقت على المنصة",
+    "free": "مجاني",
+    "paid": "مدفوع",
+    "perDay": "لكل يوم",
+    "perWeek": "لكل أسبوع",
+    "perMonth": "لكل شهر"
+  },
+  "loadTimes": {
+    "title": "أوقات تحميل التطبيق",
+    "openToHomePainted": "الفتح ← ظهور الصفحة الرئيسية",
+    "iosApp": "تطبيق iOS",
+    "webApp": "تطبيق الويب",
+    "average": "المتوسط",
+    "shortest": "الأقصر",
+    "longest": "الأطول"
+  },
+  "retention": {
+    "title": "الاحتفاظ والتسرب",
+    "explainer": "يمثل كل صف أترابي (Cohort) المستخدمين الذين سجّلوا خلال ذلك الشهر، وتُظهر كل خلية <0>نسبة من لا يزالون نشطين٪</0> بعد N من الأشهر (<1>كلما زاد اللون الأخضر زاد الثبات</1>، وM0 = 100٪).",
+    "overall": "الإجمالي",
+    "freeUsers": "المستخدمون المجانيون",
+    "paidUsers": "المستخدمون المدفوعون",
+    "caption": "الاحتفاظ لمدة 30 يومًا. يمثل الإجمالي المتوسط المرجّح لعدد المستخدمين المجانيين والمدفوعين. الإجمالي لمدة 7 أيام: {{value}}٪.",
+    "subscriberChurn": "تسرب المشتركين",
+    "churnChartLabel": "التسرب",
+    "churnCaption": "{{cancelled}} من أصل {{base}} مشتركًا مدفوعًا ألغوا اشتراكهم · السابق {{previousRate}}٪",
+    "pts": "نقطة",
+    "cohort": "الفوج",
+    "users": "المستخدمون"
+  },
+  "featureUsage": {
+    "title": "استخدام الميزات",
+    "chartLabel": "الاستخدامات",
+    "usesCaption": "استخدام · 1 = ≥1 استخدام / نافذة {{min}} دقيقة",
+    "tooltipCaption": "{{uses}} استخدامًا · عاد {{retention}}٪"
+  },
+  "onboarding": {
+    "title": "إتمام الإعداد الأولي",
+    "stepsCount": "{{count}} خطوات",
+    "finishedCaption": "أكملوا الإعداد الأولي · {{finish}} من أصل {{start}} ممن بدأوا"
+  }
+}

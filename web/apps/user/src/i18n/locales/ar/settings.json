@@ -1,0 +1,82 @@
+{
+  "title": "الإعدادات",
+  "nav": {
+    "groups": {
+      "account": "إدارة حسابي",
+      "personalization": "التخصيص",
+      "more": "معلومات ودعم"
+    },
+    "profile": "الملف الشخصي",
+    "email": "البريد الإلكتروني والحساب",
+    "security": "كلمة المرور والأمان",
+    "appearance": "المظهر",
+    "language": "اللغة",
+    "legal": "الشروط والخصوصية"
+  },
+  "profile": {
+    "title": "الملف الشخصي",
+    "description": "حدّث اسمك وصورة ملفك الشخصي.",
+    "photoLabel": "صورة الملف الشخصي",
+    "firstNameLabel": "الاسم",
+    "firstNameRequired": "أدخل اسمك.",
+    "lastNameLabel": "اللقب",
+    "lastNameRequired": "أدخل لقبك.",
+    "submit": "حفظ التغييرات"
+  },
+  "email": {
+    "title": "البريد الإلكتروني والحساب",
+    "description": "غيّر عنوان البريد الإلكتروني المرتبط بحسابك.",
+    "emailLabel": "البريد الإلكتروني",
+    "newEmailRequired": "أدخل عنوان بريد إلكتروني صالحًا.",
+    "changeRequested": "تحقق من صندوق الوارد للعنوان الجديد لتأكيد التغيير.",
+    "resendVerification": "إعادة إرسال بريد التحقق",
+    "connectedAccounts": "الحسابات المرتبطة",
+    "connectGoogle": "ربط حساب Google",
+    "connectFacebook": "ربط حساب Facebook"
+  },
+  "security": {
+    "title": "كلمة المرور والأمان",
+    "description": "غيّر كلمة المرور وراجع الأجهزة المتصلة بحسابك.",
+    "changePassword": "تغيير كلمة المرور",
+    "oldPasswordLabel": "كلمة المرور الحالية",
+    "oldPasswordRequired": "أدخل كلمة المرور الحالية.",
+    "newPasswordLabel": "كلمة المرور الجديدة",
+    "passwordMinLength": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل.",
+    "passwordLowercase": "يجب أن تحتوي كلمة المرور على حرف صغير.",
+    "passwordUppercase": "يجب أن تحتوي كلمة المرور على حرف كبير.",
+    "passwordNumber": "يجب أن تحتوي كلمة المرور على رقم.",
+    "passwordSpecialChar": "يجب أن تحتوي كلمة المرور على رمز خاص.",
+    "confirmPasswordLabel": "تأكيد كلمة المرور الجديدة",
+    "passwordMismatch": "كلمتا المرور غير متطابقتين.",
+    "connectedDevices": "الأجهزة المتصلة",
+    "disconnectAll": "فصل جميع الأجهزة",
+    "disconnectAllDesc": "سيتم تسجيل خروجك من جميع الأجهزة، بما في ذلك هذا الجهاز.",
+    "disconnectDevice": "فصل الجهاز",
+    "disconnectDeviceDesc": "سيتم تسجيل خروج هذا الجهاز وسيحتاج إلى تسجيل الدخول من جديد.",
+    "disconnect": "فصل",
+    "unknownDevice": "جهاز غير معروف",
+    "noDevices": "لا توجد جلسات نشطة.",
+    "devicesFailed": "تعذر تحميل أجهزتك.",
+    "deleteAccount": "حذف الحساب",
+    "deleteAccountDesc": "احذف حسابك وكل ما يرتبط به نهائيًا.",
+    "deleteAccountConfirmDesc": "سيتم حذف حسابك نهائيًا. لا يمكن التراجع عن هذا الإجراء."
+  },
+  "appearance": {
+    "title": "المظهر",
+    "description": "خصص مظهر الموقع.",
+    "fontLabel": "الخط",
+    "fontDescription": "اختر الخط الذي تريد استخدامه في الموقع.",
+    "themeLabel": "السمة"
+  },
+  "language": {
+    "title": "اللغة",
+    "description": "اختر لغة الموقع."
+  },
+  "legal": {
+    "title": "الشروط والخصوصية",
+    "description": "راجع الشروط التي تحكم استخدامك لـ SaaS Template.",
+    "terms": "شروط الاستخدام",
+    "privacy": "سياسة الخصوصية",
+    "copyright": "© {{year}} SaaS Template. جميع الحقوق محفوظة."
+  }
+}

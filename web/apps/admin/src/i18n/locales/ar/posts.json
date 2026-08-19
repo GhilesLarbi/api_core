@@ -1,0 +1,46 @@
+{
+  "title": "المنشورات",
+  "columns": {
+    "title": "المنشور",
+    "author": "الكاتب",
+    "media": "الوسائط",
+    "visibility": "الظهور",
+    "createdAt": "تاريخ الإنشاء"
+  },
+  "visibility": {
+    "visible": "ظاهر",
+    "hidden": "مخفي"
+  },
+  "toolbar": {
+    "searchPlaceholder": "بحث...",
+    "visibility": {
+      "all": "كل المنشورات",
+      "visible": "الظاهرة",
+      "hidden": "المخفية"
+    }
+  },
+  "table": {
+    "emptyTitle": "لم يتم العثور على منشورات",
+    "emptySubtitle": "عدّل بحثك أو عوامل التصفية."
+  },
+  "deleteDialog": {
+    "title": "حذف المنشور",
+    "description": "سيُحذف \"{{title}}\" نهائيًا للجميع بما في ذلك كاتبه. لا يمكن التراجع عن هذا."
+  },
+  "validation": {
+    "titleTooShort": "يرجى إدخال حرفين على الأقل",
+    "contentRequired": "يرجى إدخال محتوى"
+  },
+  "fields": {
+    "title": "العنوان",
+    "content": "المحتوى",
+    "hiddenLabel": "مخفي"
+  },
+  "panel": {
+    "emptyTitle": "لم يتم اختيار منشور",
+    "emptyBody": "اختر منشورًا من الجدول لعرضه هنا.",
+    "details": "التفاصيل",
+    "media": "الوسائط",
+    "visibility": "الظهور"
+  }
+}

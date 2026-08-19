@@ -1,0 +1,124 @@
+{
+  "language": {
+    "label": "Language"
+  },
+  "theme": {
+    "toggle": "Toggle theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "commandMenu": {
+    "placeholder": "Type a command or search...",
+    "navigationHeading": "Navigation",
+    "themeHeading": "Theme",
+    "languageHeading": "Language"
+  },
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "close": "Close",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "continue": "Continue",
+    "search": "Search",
+    "clearFilters": "Clear filters",
+    "viewDetails": "View details",
+    "signOut": "Sign out",
+    "reset": "Reset",
+    "openMenu": "Open menu",
+    "done": "Done",
+    "clear": "Clear"
+  },
+  "signOutDialog": {
+    "title": "Sign out",
+    "description": "Are you sure you want to sign out? You will need to log in again to access the dashboard."
+  },
+  "status": {
+    "loading": "Loading...",
+    "noResults": "No results found.",
+    "somethingWentWrong": "Something went wrong.",
+    "comingSoon": "Coming soon."
+  },
+  "errors": {
+    "title": "Something went wrong"
+  },
+  "table": {
+    "rowsPerPage": "Rows per page",
+    "pageOf": "Page {{current}} of {{total}}",
+    "rowsSelected_one": "{{count}} of {{total}} row selected.",
+    "rowsSelected_other": "{{count}} of {{total}} rows selected.",
+    "filterPlaceholder": "Filter...",
+    "toggleColumns": "Toggle columns",
+    "sortAsc": "Asc",
+    "sortDesc": "Desc",
+    "hideColumn": "Hide",
+    "goToFirstPage": "Go to first page",
+    "goToPreviousPage": "Go to previous page",
+    "goToNextPage": "Go to next page",
+    "goToLastPage": "Go to last page",
+    "goToPage": "Go to page {{page}}"
+  },
+  "upload": {
+    "chooseImage": "Choose an image",
+    "chooseDifferentImage": "Choose a different image",
+    "dropHint": "Drag and drop an image here, or click to upload",
+    "dropSubhint": "PNG, JPG or WEBP up to {{size}} MB",
+    "uploadImage": "Upload an image",
+    "uploading": "Uploading...",
+    "fileTooLarge": "File is too large.",
+    "invalidFileType": "Unsupported file type.",
+    "failed": "Upload failed. Please try again.",
+    "viewDocument": "View document",
+    "noDocument": "No document uploaded",
+    "chooseDocument": "Choose file",
+    "replaceDocument": "Replace",
+    "addDocument": "Add document",
+    "removeDocument": "Remove document",
+    "documentIndex": "Document {{index}}",
+    "kinds": {
+      "photo": "Photo",
+      "video": "Video",
+      "voiceNote": "Voice note",
+      "recording": "Recording",
+      "file": "File"
+    },
+    "numbered": "{{name}} {{number}}"
+  },
+  "selection": {
+    "count_one": "{{count}} selected",
+    "count_other": "{{count}} selected",
+    "clear": "Clear selection",
+    "clearHint": "Clear selection (Escape)",
+    "announcement_one": "{{count}} {{entity}} selected. Bulk actions toolbar is available.",
+    "announcement_other": "{{count}} {{entity}} selected. Bulk actions toolbar is available.",
+    "toolbarAriaLabel_one": "Bulk actions for {{count}} selected {{entity}}",
+    "toolbarAriaLabel_other": "Bulk actions for {{count}} selected {{entity}}",
+    "label_one": "{{entity}} selected",
+    "label_other": "{{entity}} selected"
+  },
+  "fontSize": {
+    "label": "Font size",
+    "description": "Scales the whole interface, not just the text.",
+    "small": "Small",
+    "default": "Default",
+    "large": "Large",
+    "larger": "Larger"
+  },
+  "capture": {
+    "photoTitle": "Take a photo",
+    "videoTitle": "Record a video",
+    "audioTitle": "Record a voice note",
+    "record": "Record",
+    "stop": "Stop",
+    "take": "Take photo",
+    "use": "Use this",
+    "retake": "Again",
+    "denied": "Camera and microphone permission is needed to record. Allow it in your browser settings, then try again.",
+    "unsupported": "This device cannot record here. Attach a file instead."
+  }
+}

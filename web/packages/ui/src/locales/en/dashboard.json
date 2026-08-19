@@ -1,0 +1,102 @@
+{
+  "filters": {
+    "day": "Day",
+    "week": "Week",
+    "month": "Month",
+    "presets": {
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "last_7_days": "Last 7 days",
+      "last_14_days": "Last 14 days",
+      "last_30_days": "Last 30 days",
+      "last_60_days": "Last 60 days",
+      "last_90_days": "Last 3 months",
+      "last_180_days": "Last 6 months",
+      "last_365_days": "Last 12 months",
+      "this_month": "This month",
+      "last_month": "Last month",
+      "all_time": "All time"
+    }
+  },
+  "finances": {
+    "previous": "Previous",
+    "revenue": {
+      "title": "Revenue",
+      "sub": "today {{amount}} · gross"
+    },
+    "mrr": {
+      "title": "Total MRR",
+      "sub": "paying subscribers · {{amount}} in trial pipeline"
+    },
+    "keyMetrics": {
+      "title": "Key Metrics",
+      "ltvPerUser": "LTV / user",
+      "avgRevenuePerUser": "Avg revenue / user",
+      "paidRetention": "Paid retention",
+      "cancellations": "Cancellations",
+      "totalPaidUsers": "Total paid users",
+      "freeUsers": "Free users",
+      "activeTrials": "Active trials"
+    },
+    "monthlyNet": {
+      "title": "Monthly Net",
+      "revenue": "Revenue (Lemon Squeezy + Apple)",
+      "awsCosts": "AWS costs",
+      "mercuryCosts": "Mercury Bank costs",
+      "creatorPayouts": "Creator payouts",
+      "remaining": "Remaining",
+      "upcomingPayouts": "Upcoming payouts (next month)",
+      "disclaimer": "AWS & creator payouts also appear in Mercury — avoid double-counting against the bank feed. Validate Apple figures against App Store Connect (Units / proceeds)."
+    }
+  },
+  "generalErrors": {
+    "title": "General Errors",
+    "chartLabel": "Errors",
+    "totalErrors": "Total errors",
+    "backend": "Backend",
+    "frontend": "Frontend",
+    "appCrashes": "App crashes"
+  },
+  "avgTime": {
+    "title": "Avg Time on Platform",
+    "free": "Free",
+    "paid": "Paid",
+    "perDay": "Per day",
+    "perWeek": "Per week",
+    "perMonth": "Per month"
+  },
+  "loadTimes": {
+    "title": "App Load Times",
+    "openToHomePainted": "open → home painted",
+    "iosApp": "iOS app",
+    "webApp": "Web app",
+    "average": "average",
+    "shortest": "Shortest",
+    "longest": "Longest"
+  },
+  "retention": {
+    "title": "Retention & Churn",
+    "explainer": "Each cohort row is the users who signed up that month; each cell is the <0>% still active</0> N months later (<1>greener = stickier</1>, M0 = 100%).",
+    "overall": "Overall",
+    "freeUsers": "Free users",
+    "paidUsers": "Paid users",
+    "caption": "30-day retention. Overall is the population-weighted blend of free + paid. 7-day overall: {{value}}%.",
+    "subscriberChurn": "Subscriber churn",
+    "churnChartLabel": "Churn",
+    "churnCaption": "{{cancelled}} of {{base}} paid cancelled · prev {{previousRate}}%",
+    "pts": "pts",
+    "cohort": "Cohort",
+    "users": "Users"
+  },
+  "featureUsage": {
+    "title": "Feature Usage",
+    "chartLabel": "Uses",
+    "usesCaption": "uses · 1 = ≥1 hit / {{min}}-min window",
+    "tooltipCaption": "{{uses}} uses · {{retention}}% returned"
+  },
+  "onboarding": {
+    "title": "Onboarding Completion",
+    "stepsCount": "{{count}} steps",
+    "finishedCaption": "finished onboarding · {{finish}} of {{start}} who started"
+  }
+}

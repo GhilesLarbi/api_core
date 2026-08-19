@@ -1,0 +1,48 @@
+# ── Secrets & local environment ──────────────────────────────────────────────
+# Real credentials never get committed; the *.example templates do.
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.p12
+*.pfx
+id_rsa
+id_rsa.pub
+credentials.json
+service-account*.json
+
+# ── OS junk ──────────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# ── Editors & IDEs ───────────────────────────────────────────────────────────
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*.sw?
+*~
+.fleet/
+.zed/
+
+# ── Agent / assistant local state ────────────────────────────────────────────
+# Shared prompts (CLAUDE.md, .claude/commands, .claude/skills) stay tracked.
+.claude/settings.local.json
+CLAUDE.local.md
+*/CLAUDE.local.md
+.aider*
+
+# ── Logs & scratch ───────────────────────────────────────────────────────────
+*.log
+logs/
+tmp/
+temp/
+.cache/
