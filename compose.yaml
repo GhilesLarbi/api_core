@@ -79,6 +79,7 @@ services:
             context: ./backend
             target: api
         image: api:latest
+        user: "1001:1001"
         mem_limit: 512m
         env_file:
             - ./.env
@@ -98,6 +99,7 @@ services:
             context: ./backend
             target: worker
         image: worker:latest
+        user: "1001:1001"
         mem_limit: 512m
         env_file:
             - ./.env
@@ -115,6 +117,7 @@ services:
             context: ./backend
             target: scheduler
         image: scheduler:latest
+        user: "1001:1001"
         mem_limit: 512m
         env_file:
             - ./.env
@@ -132,6 +135,7 @@ services:
             context: ./web
             target: base
         image: web-base:latest
+        user: "1001:1001"
         env_file: ./.env
         environment:
             CI: "true"
@@ -152,6 +156,7 @@ services:
             context: ./web
             target: user
         image: web-user:latest
+        user: "1001:1001"
         env_file: ./.env
         mem_limit: 1g
         ports:
@@ -175,6 +180,7 @@ services:
             context: ./web
             target: admin
         image: web-admin:latest
+        user: "1001:1001"
         env_file: ./.env
         mem_limit: 1g
         ports:
